@@ -1,0 +1,8 @@
+set_app_var power_enable_analysis true
+set_power_derate -leakage 1.5
+set_app_var power_default_toggle_rate 0.25
+set_app_var power_default_static_probability 0.4
+set_app_var power_table_include_switching_power false
+set_app_var power_clock_network_include_register_clock_pin_power false
+set_app_var power_clock_network_include_clock_gating_network true
+report_power

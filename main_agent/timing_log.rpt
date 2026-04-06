@@ -1,0 +1,6 @@
+DEBUG: Processing directory: /proj/rtg_oss_er_feint2/abinbaba/ROSENHORN_DSO_v2/main/pd/tiles/umccmd_NO_DSO_5Jan_latest_rtl with date: 5-Jan
+DEBUG: Extracted base path: /proj/rtg_oss_er_feint1/abinbaba/umc_rosenhorn_Jan5080726
+DEBUG: Extracted configuration ID: 972115
+DEBUG: Headers: Date CL UCLK_tt0p9v100c_WNS UCLK_tt0p9v100c_TNS clock_gating_default_tt0p9v100c_WNS clock_gating_default_tt0p9v100c_TNS
+DEBUG: Row added: 5-Jan 972115 -129.967 -513162.190 -108.094 -39310.221
+CSV file 'timing_details_report.csv' created successfully.

@@ -1,0 +1,15 @@
+myAccount YOUR_ACCUNT@amd.com
+mailDays 2
+senderName Chen, Simon (SRDC PD)
+senderName Zheng, Winifred
+senderName Feng, Sara
+senderName Cao, Xinyu
+vto VTO0
+vto VTO1
+vto VTO2
+vto VTO3
+vto gpt0
+vto VTOFCT01
+vto vir0
+vto All
+sys SYS0

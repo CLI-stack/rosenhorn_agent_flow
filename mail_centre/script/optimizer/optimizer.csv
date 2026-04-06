@@ -1,0 +1,111 @@
+﻿target,default tune,question,answer,,,
+FxFpPlaceMacros,No,how to fix macro overlap issue?,"add the command to tune/FxFpPlaceMacros/FxFpPlaceMacros.placerams.tcl 
+set_placement_status unplaced [get_cells *]",,,
+FxFpPlaceMacros,No,how to mannually place macros?,"add params:
+I2_MLPLACE_MACROS = 0",,,
+FxFpPlaceMacros,Yes,how to automatically place macros?,"add params:
+I2_MLPLACE_MACROS = 1",,,
+FxCts,No,how to shorten the clock latency?,"add the command to tune/FxCts/FxCts.pre_clock_opt.tcl
+source /tools/aticad/1.0/src/zoo/PD_agent/tile/optimizer/shorten_latency.tcl
+",,,
+FxCts,Yes,shorten DFX clock latency,"add params:
+CREATECTSSPEC_SDC_CLK_ROOT_MAP  = IO_DFX_Scan_Shift_Clk:IO_DFX_Scan_Shift_Clk_MESH_CTS_ROOT/Z,IO_DFX_Scan_Shift_Clk_MESH_CTS_ROOT*/Z
+MSCTS_CLK_MESH_NET_NAMES    = IO_DFX_Scan_Shift_Clk
+STACK_TMP_CHOSEN_MULTI_POINT_CTS    = 1",,,
+FxOptCts,No,NA,No,,,
+FxOptRoute,Yes,how to fix SI violation during routing?,"add the command to tune/FxOptRoute/FxOptRoute.opt.tcl 
+source /tools/aticad/1.0/src/zoo/PD_agent/tile/optimizer/hyper_route_opt.tcl",,,
+FxPlace,No,how to avoid high density issue near tile boundry?,"add the command to tune/FxPlace/FxPlace.pre_opt.tcl
+source /tools/aticad/1.0/src/zoo/PD_agent/tile/optimizer/add_edge_blockage.tcl",,,
+FxPostFloorPlan,No,NA,No,,,
+FxReRoute,No,NA,No,,,
+FxRoute,No,NA,No,,,
+FxOptCts,No,how to fix congestion issue?,"add params:
+OPTIMIZATION_ENABLE_AUTO_NDR_FxOptCts    = 0
+OPTIMIZATION_ENABLE_AUTO_NDR_FxRoute    = 0
+OPTIMIZATION_ENABLE_AUTO_NDR_FxOptRoute    = 0
+OPTIMIZATION_ENABLE_AUTO_NDR_FxReRoute    = 0",,,
+FxPlace,Yes,how to fix congestion issue due to tile notch?,"add the command to tune/FxPlace/FxPlace.pre_opt.tcl
+source /tools/aticad/1.0/src/zoo/PD_agent/tile/optimizer/add_notch_blockage.tcl",,,
+FxPlace,No,how to optimize timing? ,"add the command to tune/FxPlace/FxPlace.pre_opt.tcl
+source /tools/aticad/1.0/src/zoo/PD_agent/tile/optimizer/add_clock_uncertainty.tcl",,,
+FxPlace,No,how to fix congestion issue or how to avoid high density issue?,"add the command to tune/FxPlace/FxPlace.pre_opt.tcl
+source /tools/aticad/1.0/src/zoo/PD_agent/tile/optimizer/set_cell_spacing.tcl",,,
+FxPlace,No,how to fix congestion issue or how to avoid high density issue?,"add the command to tune/FxPlace/FxPlace.pre_opt.tcl
+source /tools/aticad/1.0/src/zoo/PD_agent/tile/optimizer/add_keepout_margin.tcl",,,
+FxFpPlaceMacros,No,how to place mem that provided from full chip floorplan,"add the following params:
+FLOORPLAN_DEF = $FCFP_RUN/<:=$TOP_MODULE:>/<:=$TOP_MODULE:>.def.gz
+FLOORPLAN_VLG = $FCFP_RUN/<:=$TOP_MODULE:>/<:=$TOP_MODULE:>.v.gz
+LIBRELDIR   = $synthesis_lib
+LIB_RELEASE = lib_SYN.B.2
+FLOORPLAN_DIR   = $FEI_RELEASE/<:=$TOP_MODULE:>/fp_05
+TARGET_FINISH_USERCODE_BuildTechDir = source /tools/aticad/1.0/src/zoo/PD_agent/tile/copy_ndm_list.csh  $FCFP_RUN/<:=$TOP_MODULE:>",,,
+FxPlace,Yes,how to enable CCD,"CHOSEN_CONCURRENT_CLOCK_DATA_SYN        = 1
+CHOSEN_CONCURRENT_CLOCK_DATA_PLACE      = 1
+CHOSEN_CONCURRENT_CLOCK_DATA_CTS        = 1
+CHOSEN_CONCURRENT_CLOCK_DATA_OPTCTS     = 1
+CHOSEN_CONCURRENT_CLOCK_DATA_OPTROUTE   = 1
+CHOSEN_CONCURRENT_CLOCK_DATA_ECOROUTE   = 1",,,
+FxPlace,Yes,How to set the CCD value,"CCD_MAX_PREPONE_FxSynthesize    = 70
+CCD_MAX_PREPONE_FxPrePlace      = 70
+CCD_MAX_PREPONE_FxPlace = 40
+CCD_MAX_PREPONE_I2Place = 40
+CCD_MAX_PREPONE_FxCts   = 40
+CCD_MAX_PREPONE_FxOptCts        = 40
+CCD_MAX_PREPONE_FxOptRoute      = 80
+
+CCD_MAX_POSTPONE_FxSynthesize   = 50
+CCD_MAX_POSTPONE_FxPrePlace     = 50
+CCD_MAX_POSTPONE_FxPlace        = 40
+CCD_MAX_POSTPONE_FxCts  = 40
+CCD_MAX_POSTPONE_FxOptCts       = 40
+CCD_MAX_POSTPONE_FxOptRoute     = 80",,,
+FxPlace,No,how to enable MPCTS with pushdown buffer,"
+# at least 2 mesh buffer, e.g. Cpl_UCIELCLK_MESH_CTS_ROOT_1 Cpl_UCIELCLK_MESH_CTS_ROOT_2, it will be use for writeMpCtsInfo data/clkMasterCloneInfo.txt from TileBuilder/supra/templates/icc2_shell/i2_cts_procs.tcl
+SCTS_CLK_MESH_NET_NAMES  = Cpl_MCLK0 UMC_UCLK 
+CHOSEN_CLK_MESH_CTS = 1
+MPCTS_CREATE_CLONED_SDCS = 1",,,
+FxPlace,No,how to enable MPCTS without pushdown buffer,"TUNE_REGEN_MESH    = 1
+CHOSEN_CLK_MESH_CTS    = 1
+CHOSEN_MULTI_POINT_CTS    = 1
+CLK_MESH_NET_NAMES    = Cpl_FIOCLK
+ANCHOR_CLK_MESH_NET_NAMES    = Cpl_FIOCLK
+MSCTS_CLK_MESH_NET_NAMES_FxFpInsertPhysicalCells    = Cpl_FIOCLK
+MSCTS_CLK_MESH_NET_NAMES_FxPostFloorPlan    = Cpl_FIOCLK
+ 
+CLK_MESH_Cpl_FIOCLK_INSERT_CTS_ROOT_MODE    = anchorpin
+MSCTS_CLK_MESH_NET_NAMES    = Cpl_FIOCLK
+STACK_TMP_CHOSEN_MULTI_POINT_CTS    = 1
+STACK_TMP_CHOSEN_CLK_MESH_CTS    = 1
+CLK_MESH_Cpl_FIOCLK_CTS_ROOT_PITCH    = 130
+ 
+CLK_MESH_Cpl_FIOCLK_ANCHORPIN_COORDS    = -260,-210 -260,-70 -260,70 -260,210 -130,-210 -130,-70 -130,70 -130,210 0,-210 0,-70 0,70 0,210 130,-210 130,-70 130,70 130,210 260,-210 260,-70 260,70 260,210
+CLK_MESH_Cpl_FIOCLK_ANCHORPIN_HORIZONTAL_PITCH    = 120
+CLK_MESH_Cpl_FIOCLK_ANCHORPIN_VERTICAL_PITCH    = 140
+CLK_MESH_DFLT_ADD_ANT_DIODE    = 1
+CTS_RELAX_CONSTRAINTED_CELLS    = 1
+CLK_MESH_DFLT_CTS_ROOT_DOROUTE    = 1
+CLK_MESH_DFLT_SPNET_ADD_ROOT_PORTS    = 1
+CLK_MESH_DFLT_SPNET_ROOT_PORTS_PIN_SIZE    = 1.42 0.36
+CLK_MESH_DFLT_SPNET_REMOVE_MESH_WIRES    = 1
+CLK_MESH_DFLT_ANCHORPIN_HORIZONTAL_PITCH    = 120
+CLK_MESH_DFLT_ANCHORPIN_VERTICAL_PITCH    = 140
+CLK_MESH_DFLT_ANCHORPIN_FLEXIBLE_DIRECTION    = horizontal",,,
+FxCts,No,how to check clock tree latency,check rpts/FxCts/FxCts_qor_latency.rpt.gz,,,
+FxCts,No,how to fix the clock transition?,"TIMING_MAX_tt0p6v0c_TRAN        = 50
+TIMING_MAX_SYNC_tt0p6v0c_TRAN   = 50",,,
+FxPlace,No,how to optimize setup timing?,"Hi vto1, 
+Could you optimize run for FxPlace UMC_UCLK 3? 
+/proj/frontrange_pdtil1_nobackup/VTO1/umc_umcctrl_t/250403170838586_sub1/main/pd/tiles/umc_umcctrl_t_250403170838586_sub1_TileBuilder_Apr03_0515_31048_GUI ",,,
+FxPlace,No,how to use ulvtll optimize pr?,"Hi vto1, 
+Could you update params?
+STACK_CHOSEN_VT_STRATEGY        = ULVTLL",,,
+FxPlace,No,how to change the derate?,"Hi vto1, 
+Could you update params?
+TUNE_PROJECT_OPT_MARGIN_DERATE_tt0p65v0c_FxPlace        = 0.05",,,
+FxPlace,No,"If working voltage is 0.7v, there are 0.65v and 0.75v lib, which corner should be used?","Both corner is ok as they are same voltage delta close to 0.7v, if design is cell dominate, use 0.65v corner, if design is wire dominate, use 0.75v. Or both corners should be used.",,,
+PtTim,No,"how to enable specific pt targets, e.g. TT0P75V100C?","Hi vto1,
+could you update params?
+STACK_TIMING_TT0P75V100C_FUNC_SETUP = 1",,,
+FxCts,No,Is MPCTS must?,"No, MPCTS will cause no common path which cause setup and hold conflict at ECO stage, so it is better to use single point CTS for small tiles.",,,
+FxCts,No,How to specify the specific latency for clock tree?,set_clock_tree_options -target_latency 365 -target_latency_type longest_clock_path -target_skew 20 -clock [get_clocks MID_UCIELCLK] -corners tt0p65v0c_typrc100c_setup,,,

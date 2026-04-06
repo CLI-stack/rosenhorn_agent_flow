@@ -1,0 +1,61 @@
+# Runtime data
+main_agent/data/
+main_agent/runs/
+mail_centre/data/
+log_centre/
+
+# Runtime task tracking
+main_agent/tasksModel.csv
+main_agent/tasksModel.csv.runDir
+main_agent/tasksModel_bk
+main_agent/command.csv
+main_agent/lol.csv
+main_agent/lol_log.rpt
+main_agent/available_instructions.csv
+mail_centre/tasksMail.csv
+mail_centre/tasksMail.azure.csv
+mail_centre/tasksMail.win.csv
+
+# User-specific config
+main_agent/assignment.csv
+mail_centre/assignment.csv
+
+# Files containing secrets/credentials
+mail_centre/mailConfig.txt
+main_agent/script/genie_env.csh
+
+# Runtime logs and reports
+main_agent/*.log
+main_agent/*.spec
+main_agent/*.html
+main_agent/*.json
+main_agent/runDir.list
+main_agent/tile_status
+main_agent/tile_status_temp
+main_agent/pending_job.log
+main_agent/send_mail.txt
+main_agent/out.controls
+main_agent/out.params
+main_agent/*.txt
+main_agent/spg_dft_filtered_*.txt
+main_agent/timing_details_report.csv
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Backup and temp files
+*~
+*.bak
+*.bak_*
+*.backup*
+*.backup2
+*.backup3
+.nfs*
+*.swp
+
+# Stray files
+main_agent/script/1
+main_agent/less
+main_agent/251203133157980_spec

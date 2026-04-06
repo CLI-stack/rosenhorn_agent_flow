@@ -1,0 +1,12 @@
+unalias ls
+unalias rm
+unalias pwd
+unalias awk
+unalias cp
+unalias cat
+unalias grep
+unalias egrep
+unalias touch
+unalias mv
+unalias df
+unalias cd

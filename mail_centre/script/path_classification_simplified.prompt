@@ -1,0 +1,12 @@
+could you analysis below timing report and end with "conclusion is:". 
+1. if logic level > 28 and clock contain "SOCCLK" or "FCLK", report logic level.
+2. if logic level > 36 and clock contain "LCLK, report logic level.
+3. if max fanout > 25, report the max fanout number.
+4. if trans > 100.0, report all the point of which the trans > 100.0
+5. if the clock of launch and capture point are different, report this path is async and report the clocks name, in this case, it has "inter-clock uncertainty" in the report, if"inter-clock uncertainty"  > 500.0, report this path is abnormal inter-clock uncertainty and the value.
+7. if startpoint has clock pin (CLK,CP) to mux select pin, e.g. CPSEL, for example, XX/XX/CPSEL, report they are static signal.
+8. if endpoint's pin name is "LS", for exmaple, Endpoint: XXX/XXX/LS, report the endpoint.
+9. if the clock skew > 300.0, report the clock skew value.
+10. if library setup time < -300.0, report the abnormal library setup time.
+11. if fall edage clock delay is much larger than rise edge by 1000.0, report the half edge clock issue.
+12. if delay > 200.0, report the cell name. if its name contain "rom", report this huge analog delay and the delay value.

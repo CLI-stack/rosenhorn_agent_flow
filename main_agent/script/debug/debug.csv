@@ -1,0 +1,65 @@
+﻿target,issue,root cause,type,action
+,"Segmentation fault
+Stack trace for crashing thread
+Internal system error",ramdon crash,ramdon crash,switch_version.csh
+,Unable to locate a modulefile,tool not exists,tool issue,switch_version.csh
+,No such file sdc,missing file,missing file,report.csh fct
+,No such file,missing file,missing file,report.csh manager
+,v No such file or directory ,missing file,missing file,report.csh flowLead
+,Cannot find tech layer,miss defination,tech file,report.csh flowLead:librarian
+,Can't find in data/flow.xml,tb conflict,tb conflict,make.csh
+,Distributed run failed. error code: Operation cancelled,MLMP lsf failed,lsf issue,retrace.csh
+,distributed macro placement exploration failed.,MLMP lsf failed,lsf issue,retrace.csh
+,These macros occurred overlap,MLMP failed,overlap,report.csh flowLead
+,"Your job did not finish properly.
+The reason given by LSF is the following: TERM_MEMLIMIT: job killed after reachingLSF memory usage limit.",mem not enough,lsf issue,retrace.csh
+,StarRC task DB failed,too many short,def issue,report.csh flowLead
+,Problem running after command hook system_internal for command open_block,data issue,data issue,report.csh flowLead
+,problem in write_oasis,oasis issue,oasis issue,report.csh flowLead
+,creating runtime directory Permission denied,permission issue,lsf issue,retrace.csh
+,Length of vertical edge,floorplan issue,data issue,stop.csh manager
+,found unplaced ports,floorplan issue,data issue,report.csh manager
+,You are attempting to source a file from a home directory,cad rule,tune issue,report.csh manager
+,Failure to open input file,missing file,missing file,report.csh flowLead
+,Unable to resolve reference,missing file,missing file,fix_macro_list.csh flowLead
+,problem in set_ref_libs,missing file,missing file,report.csh flowLead
+,Design did not link successfully,link issue,link issue,report.csh flowLead
+,failed to open,missing file,missing file,report.csh flowLead
+,problem with access,missing file,missing file,report.csh flowLead
+,Cannot read,missing file,missing file,report.csh flowLead
+,channel may have congestion,channel too narrow,def issue,report.csh manager
+,DTCD need to fix,floorplan issue,data issue,dtcd_retrace.csh
+,DTCD need to report to FCFP,floorplan issue,data issue,report.csh manager
+,There is no dft_inserted_design directory,dft issue,data issue,report.csh manager
+,but no input layout has a cell named,oasis issue,oasis issue,report.csh flowLead
+,macro out of boundary,floorplan issue,data issue,grow_diesize.csh manager
+,need to enable user floorplan,floorplan issue,data issue,enable_user_floorplan.csh
+,vdci pin not at two side,floorplan issue,data issue,report.csh manager
+,No power info on port,upf issue,data issue,report.csh manager
+,upf is missing for vdci tiles,upf issue,data issue,report.csh manager
+,other power region too small which is less than lvl,upf issue,data issue,report.csh manager
+,vdci power region info lvl,region generation,extraction,generate_vdci_region.csh manager
+,Cell referenced but not defined,oasis issue,oasis issue,report.csh flowLead
+,shmoo utilization or aspect ratio,floorplan issue,def issue,shmoo_tile_size.csh
+,increase width or hight ,floorplan issue,def issue,incr_tile_size.csh
+,could not open script file ,missing file,missing file,report.csh manager
+,utilization too high,floorplan issue,def issue,report.csh manager
+,Error opening file,missing file,missing file,report.csh fct
+,offtrack is found,floorplan issue,data issue,report.csh manager
+,halo check fail for rule,floorplan issue,data issue,report.csh manager
+,clock port distance  too far from center of gravity of regs,port issue,data issue,report.csh manager
+,check port at wrong edge,port issue,data issue,report.csh manager
+,source file home directory,violate rules,rule issue,report.csh manager
+,Placeable row width is less than the sum max ,floorplan issue,data issue,report.csh manager
+,too close to boundary,floorplan issue,data issue,report.csh manager
+,Cannot set design scoped application option,flow issue,flow issue,report.csh manager
+,No clocks were created during constraint reading,sdc issue,sdc issue,report.csh manager
+,Severe error encountered,flow issue,flow issue,report.csh manager
+,tile width is not the multiples,floorplan issue,data issue,report.csh manager
+,tile height is not the multiples,floorplan issue,data issue,report.csh manager
+,not on x grid,floorplan issue,data issue,report.csh manager
+,not on half row,floorplan issue,data issue,report.csh manager
+,POWER_NET_NAME not defined to get the main power,flow issue,flow issue,report.csh manager
+,ICV run failed,flow issue,flow issue,report.csh manager
+,Following set of licenses does not exist on server,license issue,flow issue,retrace.csh
+,Found Macro PG Floating,flow issue,flow issue,report.csh manager

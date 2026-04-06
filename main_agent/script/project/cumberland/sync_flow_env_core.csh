@@ -1,0 +1,1 @@
+/tool/aticad/1.0/src/zoo/mi400/mid/scripts/SyncAllFlowEnvironment.csh

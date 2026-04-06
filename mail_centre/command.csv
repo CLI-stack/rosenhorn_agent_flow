@@ -1,0 +1,58 @@
+﻿﻿source /tools/aticad/1.0/src/sysadmin/cpd.cshrc,shell
+setenv FAMILY supra,shell
+setprj navi4caid,shell
+TileBuilderStart --params override.params --controls override.controls ,shell
+$ALLTILES_DIR/scripts/TBUtility/skip_green_target_seras.csh,shell
+$ALLTILES_DIR/scripts/tile_flow/SyncAllFlowEnvironment.csh,shell
+python3 $ALLTILES_DIR/scripts/python/extract_tile_timing_status_Fx.py,shell
+$ALLTILES_DIR/scripts/TBUtility/TB_control_seras.pl,shell
+ cd ../scripts/tile_flow,shell
+p4 sync SyncAllFlowEnvironment.csh,shell
+cd –,shell
+source $ALLTILES_DIR/scripts/tile_flow/SyncAllFlowEnvironment.csh,shell
+setprj,shell
+scp,shell
+alias,shell
+clear,shell
+df,shell
+du,shell
+get,shell
+hostname,shell
+ifconfig,shell
+kill,shell
+man,shell
+netstat,shell
+ping,shell
+ps,shell
+put,shell
+quit,shell
+scp,shell
+sftp,shell
+top,shell
+uname,shell
+who,shell
+whoami,shell
+bzip2,shell
+cat,shell
+Column1,shell
+cp,shell
+echo,shell
+file,shell
+stat,shell
+find,shell
+grep,shell
+gzip,shell
+head,shell
+less,shell
+ln,shell
+ls,shell
+mkdir,shell
+more,shell
+mv,shell
+rm,shell
+rmdir,shell
+SSH,shell
+stat,shell
+tail,shell
+tar,shell
+touch,shell

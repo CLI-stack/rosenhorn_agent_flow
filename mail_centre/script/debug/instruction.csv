@@ -1,0 +1,176 @@
+﻿branch from FxFpPlaceMacros,tb_branch.csh $tile $runDir $refDir $target $params $tune $tag $table,1,start run,support quoting mail,"Hi AI,
+      Could you branch from FxPlace for df_rpt_6_t?
+CCD_MAX_PREPONE = 40
+CCD_MAX_POSTPONE    = 40
+CCD_MAX_PREPONE_PD  = 40
+CCD_MAX_POSTPONE_PD = 40",simon1.chen@amd.com
+branch from FxFpPlaceMacros with following params,tb_branch.csh $tile $runDir $refDir $target $params $tune $tag $table,1,start run,support quoting mail,,
+TileBuilderBranch  from FxFpPlaceMacros with following params,tb_branch.csh $tile $runDir $refDir $target $params $tune $tag $table,1,start run,support quoting mail,,
+TileBuilderBranch  from FxFpPlaceMacros,tb_branch.csh $tile $runDir $refDir $target $params $tune $tag $table,1,start run,support quoting mail,,
+check your log logs/FxFpPlaceMacros.log.gz,check_log.csh $tile $runDir $refDir $file $tag,2,analysis,,,simon1.chen@amd.com
+please open data/setup.nlib to check if you take this update correctly .,# open nlib,3,update,,,simon1.chen@amd.com
+Please check your log . make sure your use correct lib.,# check log,4,analysis,,,simon1.chen@amd.com
+please sync flow to get this update,sync.csh $tile $runDir $file $tag,5,update,,,simon1.chen@amd.com
+what is the tile status for df_tcdxa_t?,report_tileStatus.csh $tile $runDir $refDir $tag,6,report,support quoting mail,,simon1.chen@amd.com
+what is the status for df_tcdxa_t?,report_tileStatus.csh $tile $runDir $refDir $tag,6,report,support quoting mail,,
+could you report the timing for df_tcdxa_t?,report_timingStatus.csh $tile $runDir $refDir $tag,7,report,support quoting mail,,
+what is the timing status for df_tcdxa_t?,report_timingStatus.csh $tile $runDir $refDir $tag,7,report,support quoting mail,"Hi AI,
+what is the timing status for df_tcdxi_t?",simon1.chen@amd.com
+where is the run dir for df_tcdxa_t?,report_runDir.csh $tile $runDir  $tag,8,report,,,simon1.chen@amd.com
+where can I find the run dir for df_tcdxa_t?,report_runDir.csh $tile $runDir  $tag,8,report,,,
+could you send the run dir?,report_runDir.csh $tile $runDir  $tag,8,report,,,simon1.chen@amd.com
+could you fix the congestion issue for df_tcdxa_t?,fix_congestion.csh $tile $runDir $refDir $tag,9,fix,support quoting mail,,simon1.chen@amd.com
+could you fix the timing issue for df_tcdxa_t?,fix_timing.csh $tile $runDir $refDir $tag,10,fix,,,simon1.chen@amd.com
+could you clean the drc violation for df_tcdxa_t?,fix_drc.csh $tile $runDir $refDir $tag,11,fix,,,simon1.chen@amd.com
+could you start a new run for df_tcdxa_t?,start_new_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir,12,start run,,"Hi AI,
+      Could you start a new run for df_tcdxb_t with following params?
+NICKNAME    = test 
+TILES_TO_RUN    = df_tcdxb_t
+TILEBUILDER_FREEZEFLOWRELEASE   = NAVI44_FLOW_NLCp5_Flow
+TILEBUILDER_FREEZEDATARELEASE   = NAVI44_FLOW_NLCp5_Data
+TILEBUILDER_FREEZESTACKDATARELEASE  = NAVI44_CFLOW_Data
+TILEBUILDER_SEPARATE_STACK_PARAMS_LABEL = NAVI44_CFLOW_Data
+TILEBUILDER_SEPARATE_STACK_PARAMS_TREE  = soc_pd_n5
+TILEBUILDER_SEPARATE_STACK_PARAMS   = 1
+TAPEOUT = a0
+FAMILY  = supra
+PERSONALITY = placenroute
+STACK   = soc_pd
+TECHNO_NAME = N5
+NODE_LIST   = N5
+STD_CELL_LIB_NAME   = tsmc210n4p
+PROJECT = navi44
+FCB_BLOCK_TYPE  = 
+CHIP_RELEASE    = rel_NLCp5
+FLOORPLAN_POINTER_PD    = fp_01
+FEI_POINTER = 0000
+CHIP_TILENAME   = CHIP
+LIB_RELEASE_PD  = lib_Cp5
+PLACE_MAX_UTIL  = 0.75
+IC_MAX_PLACEMENT_DENSITY    = 0.6
+PLACE_AUTO_DENSITY  = 0
+CCD_MAX_PREPONE = 50
+CCD_MAX_POSTPONE    = 50
+CCD_MAX_PREPONE_PD  = 50
+CCD_MAX_POSTPONE_PD = 50
+PLACE_OPTIMIZATION_SEQUENCE = SEPARATEPLACE_SUPEREFFORT
+PLACE_SKIP_MAGNET_PLACEMENT = 1
+TILEBUILDER_STACKTUNETREE_TOSYNC    = soc_pd_n5
+TUNE_SEPARATE_STACK = 1",simon1.chen@amd.com
+could you start a new run with following params for df_tcdxa_t?,start_new_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir,12,start run,,# you can insert table to specify different params for different runs,
+could you start a new TB for df_tcdxa_t?,start_new_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir,,,,,
+could you start a run  with following params for df_tcdxi_t?,start_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir,13,start run,,,
+could you start a run for df_tcdxi_t?,start_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir,13,start run,,,
+could you start a new run for df_tcdxa_t? You can refer to,start_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir,13,start run,,,
+could you create the link for df_tcdxa_t?,link_run_dir.csh $tile $runDir $refDir $tag,14,generic,,,simon1.chen@amd.com
+could you link run for df_tcdxa_t?,link_run_dir.csh $tile $runDir $refDir $tag,14,generic,,,
+could you link run dir to following dir for df_tcdxa_t?,link_run_dir.csh $tile $runDir $refDir $tag,14,generic,,,
+could you link run dir for df_tcdxa_t?,link_run_dir.csh $tile $runDir $refDir $tag,14,generic,,,
+could you run the script for df_tcdxi_t?,run_command.csh $tile $runDir $refDir $file $tag,16,generic,,"Hi AI,
+could you source the script for df_tcdxi_t?
+/home/simchen/aigc/test.csh",simon1.chen@amd.com
+could you source the script for df_tcdxi_t?,run_command.csh $tile $runDir $file $tag,17,generic,,"Hi AI,
+could you source the script for df_tcdxi_t?
+/home/simchen/aigc/test.csh",simon1.chen@amd.com
+do you know how to start a run?,"#    You can use following instruction: \n\n Hi AI,\n    could you start a run for $tile?\n",18,consult,,,simon1.chen@amd.com
+Please release reroute database.,release_best_run.csh $tile $runDir $tag,20,release,,,simon1.chen@amd.com
+what tiles do you own?,report_ownTile.csh $ownTiles $tag,21,report,,"Hi AI,
+What tile do you own?",simon1.chen@amd.com
+what's your run disk,report_disk.csh $disk $tag,22,report,,"Hi AI,
+    what's your run disk?",simon1.chen@amd.com
+what is the progress for df_tcdxa_t?,report_runProgress.csh $tile $runDir $refDir $tag,23,report,support quoting mail,,simon1.chen@amd.com
+what is the run progress for df_tcdxa_t?,report_runProgress.csh $tile $runDir $refDir $tag,23,report,support quoting mail,"Hi AI,
+What’s the run progress for df_tcdxi_t?",simon1.chen@amd.com
+sync files,syn.csh $runDir $file $tag,24,update,,,simon1.chen@amd.com
+are you online?,"#    Yes, what can I do for you? You can use following instruction to get more assistance: \n\n Hi AI,\n    could you list the instructions?\n",25,consult,,"Hi AI,
+     Are you on line?",simon1.chen@amd.com
+could you update flow for df_rpt_6_t with following command?,update_flow.csh $tile $runDir $file $tag,26,update,,,
+could you update flow for df_rpt_6_t?,update_flow.csh $tile $runDir $file $tag,26,update,,,
+could you shmoo the utilization from 0.4 to 0.5 for df_tcdxi_t?,shmoo_utilization.csh $project $tile $runDir $disk $params $tune $digit $file $tag,27,start run,,,
+could you shmoo the aspect ratio from 0.5 to 1.5 for df_tcdxi_t?,shmoo_aspectRatio.csh $project $tile $runDir $disk $params $tune $digit $file $tag,28,start run,,,
+could you help monitor my run?,monitor_run.csh $refDir $tag,29,generic,,,
+what is the congestion status for df_tcdxa_t?,report_congestionStatus.csh $tile $runDir $refdir $tag,30,report,support quoting mail,"Hi AI,
+what is the congestion status for df_tcdxi_t?",simon1.chen@amd.com
+could you update the params  for df_tcdxi_t?,update_params.csh $tile $runDir $refDir $params $tag,31,update,,"Hi AI, 
+Could you update the params for df_rpt_6_t? 
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_2023_06_07_16_11_20_919000_00_00_TileBuilder_Jun07_0451_54336_GUI/ 
+CCD_MAX_POSTPONE = 40 
+CCD_MAX_POSTPONE_PD = 40 ",simon1.chen@amd.com
+could you add the params  for df_tcdxi_t?,update_params.csh $tile $runDir $refDir $params $tag,31,update,,"Hi AI, 
+Could you add the params for df_rpt_6_t? 
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_2023_06_07_16_11_20_919000_00_00_TileBuilder_Jun07_0451_54336_GUI/ 
+CCD_MAX_POSTPONE = 40 
+CCD_MAX_POSTPONE_PD = 40 ",simon1.chen@amd.com
+could you update the params and rerun the FxCts  for df_tcdxi_t?,update_params_rerun.csh $tile $runDir $refDir $params $target $tag,32,update,,,simon1.chen@amd.com
+could you rerun the FxPlace for df_tcdxi_t?,rerun_target.csh $tile $runDir $refDir $target $tag,33,update,,"Hi AI, 
+Could you rerun the FxCts for df_rpt_6_t in following dir? 
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_branch_2023_06_25_12_26_50_129000_00_00_TileBuilder_Jun07_0451_54336_GUI ",simon1.chen@amd.com
+could you generate the run dir tree?,gen_run_dir_tree.csh $tile $runDir $refDir $tag,34,report,,,simon1.chen@amd.com
+could you TileBuilderOverwriteCommand for df_tcdxi_t?,tb_overwriteCommand.csh $tile $runDir $refDir $file $regu $tag,35,update,,,simon1.chen@amd.com
+could you predict the tile congestion?,predict_tile_congestion.csh $table $tag,36,analysis,,,simon1.chen@amd.com
+could you predict the congestion?,predict_tile_congestion.csh $table $tag,36,analysis,,,simon1.chen@amd.com
+could you remove the following dir?,remove_dir.csh $refDir $file  $tag,37,remove,,"Hi AI, 
+could you remove the following dir? 
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_branch_2023_06_25_12_26_50_129000_00_00_TileBuilder_Jun07_0451_54336_GUI/test1 
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_branch_2023_06_25_12_26_50_129000_00_00_TileBuilder_Jun07_0451_54336_GUI/test2 
+",simon1.chen@amd.com
+what is the disk usage?,disk_usage.csh $refDir $file $tag,38,report,,,
+what is the disk usage for following dir?,disk_usage.csh $refDir $file $tag,38,report,,"Hi AI,
+    what is the disk usage for following dir?
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_branch_2023_06_25_12_26_50_129000_00_00_TileBuilder_Jun07_0451_54336_GUI",simon1.chen@amd.com
+could you help to check if the following dir exist?,disk_usage.csh $refDir $file $tag,38,report,,,
+could you help to check if the following file exist?,disk_usage.csh $refDir $file $tag,38,report,,,simon1.chen@amd.com
+could you learn the following information?,learn_experience.csh $table $tag,39,learn,,,simon1.chen@amd.com
+could you learn the following instruction?,learn_experience.csh $table $tag,39,learn,,,simon1.chen@amd.com
+could you learn the following table?,learn_experience.csh $table $tag,39,learn,,,simon1.chen@amd.com
+could you learn the following issue?,learn_experience.csh $table $tag,39,learn,,,simon1.chen@amd.com
+could you help to restart the TB in following dir?,restart_TB.csh $tile $runDir $refDir $tag,40,start run,,"Hi AI,
+Could you help restart the TB in following dir?
+/proj/wek_pd_irem1/simchen/dfx_dft_t/Thu_Aug_24_00_20_38_EDT_2023/main/pd/tiles/dfx_dft_t_230817084224977_TileBuilder_Aug24_0020_21694_GUI
+",simon1.chen@amd.com
+could you help to restart the TB?,restart_TB.csh $tile $runDir $refDir $tag,39,start run,,,simon1.chen@amd.com
+could you start the virtual tile owner?,# This is system task.,41,sys,,,simon1.chen@amd.com
+could you start the vto?,# This is system task.,42,sys,,,simon1.chen@amd.com
+could you set the ignore task?,# This is system task.,43,sys,,,simon1.chen@amd.com
+could you show the tasks?,# This is system task.,44,sys,,,simon1.chen@amd.com
+could you list the instruction?,list_instruction.csh $tag,45,report,,,simon1.chen@amd.com
+what can you do?,list_instruction.csh $tag,45,report,,,simon1.chen@amd.com
+could you stop the vto?,# This is system task.,46,sys,,,simon1.chen@amd.com
+sync flow environment,sync_flow_env.csh $tile $runDir $refDir $tag,47,update,,,simon1.chen@amd.com
+TileBuilderGenParams,tb_gen.csh $tile $runDir $refDir $tag,48,update,,,simon1.chen@amd.com
+TileBuilderMake,tb_make.csh $tile $runDir $refDir $tag,49,update,,,simon1.chen@amd.com
+could you help to stop the TB in following dir?,stop_TB.csh $tile $runDir $refDir $tag,50,stop run,,,simon1.chen@amd.com
+could you help to stop the TB?,stop_TB.csh $tile $runDir $refDir $tag,50,stop run,,,simon1.chen@amd.com
+could you help generate bom.json for df_tcdxa_t?,gen_bom_json.csh $tile $runDir $refDir $tag,51,generic,support quoting mail,,simon1.chen@amd.com
+what is the run time of FxPlace for df_tcdxa_t?,report_runTime $tile $runDir $refDir $target $tag,52,generic,,,simon1.chen@amd.com
+could you submit the def for df_tcdxa_t?,submit_def.csh $tile $runDir $refDir $target $tag,53,generic,,,
+could you take the following assignment?,take_assignment.csh $tile $runDir $refDir $target $tag,54,generic,,,
+could you update the params to params center?,update_params_to_center.csh $tile $runDir $refDir $tag,55,update,,,
+could you update the tune to tune center for FxPlace?,update_tune_to_center.csh $tile $runDir $refDir $target $file $tag,56,update,,"Hi VTO0,
+     Could you update the tune to tune center for df_tcdx_a0_t for FxFpPlaceMacros?
+/home/simchen/FxFpPlaceMacros.placerams.tcl",
+could you update the tune file to tune center for FxPlace?,update_tune_to_center.csh $tile $runDir $refDir $target $file $tag,56,update,,,
+could you update the params from params center?,update_params_from_center.csh $tile $runDir $refDir $tag,57,update,,,
+could you update the tune from tune center for FxPlace?,update_tune_from_center.csh $tile $runDir $refDir $target $tag,58,update,,,
+could you update the tune file from tune center for FxPlace?,update_tune_from_center.csh $tile $runDir $refDir $target $tag,58,update,,,
+could you release fp_clean data for df_tcdxa_t?,release_data.csh $tile $runDir $refDir $stage $tag,59,update,,,
+could you release fp_clean for df_tcdxa_t?,release_data.csh $tile $runDir $refDir $stage $tag,59,update,,,
+could you hack sdc for frequency?,hack_sdc_freq.csh $tile $runDir $refDir $tag,60,generic,,,
+could you hack sdc for clock frequency?,hack_sdc_freq.csh $tile $runDir $refDir $tag,60,generic,,,
+could you copy def to dir?,cp_def.csh $tile $runDir $refDir $tag,61,generic,,,
+could you update the seras environment?,update_seras_env.csh $tile $runDir $refDir $tag,62,update,,,
+TileBuilderUpdateSeras,update_seras_env.csh $tile $runDir $refDir $tag,62,update,,,
+could you show the floorplan map?,show_map.csh $tile $runDir $refDir $stage $tag,63,generic,,,
+could you update the flow file?,sync_flow_file.csh $tile $runDir $refDir $p4File $tag,64,update,,,
+could you sync the flow file?,sync_flow_file.csh $tile $runDir $refDir $p4File $tag,64,update,,,
+could you check the clock overlap with mem?,check_clock_mem_overlap.csh $tile $runDir $refDir $tag,65,check,,,
+could you show TB console for df_tcdxa_t?,show_tb_console.csh $tile $runDir $refDir $tag,66,generic,,,
+could you stop vto monitor?,stop_vto_monitor.csh $tile $runDir $refDir $tag,67,generic,,,
+could you start vto monitor,start_vto_monitor.csh $tile $runDir $refDir $tag,68,generic,,,
+could you add the command to tune/FxFpStreamOut/FxFpStreamOut.tcl ,add_command_to_tune.csh $tile $runDir $refDir $tune $tag,69,generic,,,
+what is current job?,show_jobs.csh $tile $runDir $refDir $tag,70,LSF,,,
+could you show job?,show_jobs.csh $tile $runDir $refDir $tag,70,LSF,,,
+could you kill the job?,kill_jobs.csh $tile $runDir $refDir $integer $tag,71,LSF,,,
+could you copy the sdc to following dir?,cp_sdc.csh $tile $runDir $refDir $p4File $tag,72,generic,,,
+could you copy the sdc to?,cp_sdc.csh $tile $runDir $refDir  $p4File $tag,72,generic,,,
+what is the release status for df_tcdxa_t?,report_releaseStatus.csh $tile $runDir $refDir $tag,73,report,,,

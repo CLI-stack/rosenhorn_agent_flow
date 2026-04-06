@@ -1,0 +1,316 @@
+﻿branch from ,tb_branch.csh $tile $runDir $refDir $target $params $tune $tag $table,1,start run,support quoting mail,"Hi AI,
+      Could you branch from  for df_rpt_6_t
+CCD_MAX_PREPONE = 40
+CCD_MAX_POSTPONE    = 40",simon1.chen@amd.com
+branch from  with following params ,tb_branch.csh $tile $runDir $refDir $target $params $tune $tag $table,1,start run,support quoting mail,,simon1.chen@amd.com
+TileBuilderBranch  from  with following params ,tb_branch.csh $tile $runDir $refDir $target $params $tune $tag $table,1,start run,support quoting mail,,simon1.chen@amd.com
+TileBuilderBranch  from ,tb_branch.csh $tile $runDir $refDir $target $params $tune $tag $table,1,start run,support quoting mail,,simon1.chen@amd.com
+could you open nlib ,open_nlib.csh $tile $runDir $refDir $file $tag $noLsf,2,interactive,support quoting mail,"Hi vto8,
+      Could you open nlib data/FpPlaceMacros.nlib
+/proj/cumberland/a0/tiles/NLB/secip_ifoe_mid_t/latest/workspace/
+/proj/cumberland/a0/tiles/NLB/secip_mp1_mid_t/latest/workspace/",simon1.chen@amd.com
+what is the tile status ,report_tileStatus.csh $tile $runDir $refDir $tag $integer $unit $repeat,6,report,support quoting mail,"Hi vto5, 
+What s the tile status? 
+/proj/cmb_pnr_vol74/wbye/iohub_l1nhtsdpsw_t/0305/main/pd/tiles/iohub_l1nht_sdp_sw1_0_mid_t_run1_TileBuilder_Mar06_0117_38408_GUI 
+/proj/cmb_pnr_vol74/wbye/iohub_l1nhtsdpsw_t/0305/main/pd/tiles/run1_br1_margin13 ",simon1.chen@amd.com
+could you report status ,report_tileStatus.csh $tile $runDir $refDir $tag $integer $unit $repeat,6,report,support quoting mail,,simon1.chen@amd.com
+could you report tile status ,report_tileStatus.csh $tile $runDir $refDir $tag $integer $unit $repeat,6,report,support quoting mail,,simon1.chen@amd.com
+what is the status ,report_tileStatus.csh $tile $runDir $refDir $tag $integer $unit $repeat,6,report,support quoting mail,,simon1.chen@amd.com
+could you report the timing ,report_tileStatus.csh $tile $runDir $refDir $tag $integer $unit $repeat,7,report,support quoting mail,,simon1.chen@amd.com
+what is the timing status ,report_tileStatus.csh $tile $runDir $refDir $tag $integer $unit $repeat,7,report,support quoting mail,"Hi AI,
+what is the timing status ",simon1.chen@amd.com
+where is the run dir ,report_runDir.csh $tile $runDir  $tag $noLsf,8,report,support quoting mail,,simon1.chen@amd.com
+where can I find the run dir ,report_runDir.csh $tile $runDir  $tag $noLsf,8,report,support quoting mail,,simon1.chen@amd.com
+could you send the run dir ,report_runDir.csh $tile $runDir  $tag $noLsf,8,report,support quoting mail,,simon1.chen@amd.com
+could you start a new run ,start_new_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir $file,12,start run,,"Hi AI,
+      Could you start a new run for df_tcdxb_t with following params
+TILEBUILDER_FREEZEFLOWRELEASE   = NAVI44_FLOW_NLCp5_Flow
+TILEBUILDER_FREEZEDATARELEASE   = NAVI44_FLOW_NLCp5_Data
+TILEBUILDER_FREEZESTACKDATARELEASE  = NAVI44_CFLOW_Data
+TILEBUILDER_SEPARATE_STACK_PARAMS_LABEL = NAVI44_CFLOW_Data
+TILEBUILDER_SEPARATE_STACK_PARAMS_TREE  = soc_pd_n5
+",simon1.chen@amd.com
+could you start a new session ,start_new_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir $file,12,start run,,"Hi AI,
+      Could you start a new run for df_tcdxb_t with following params
+TILEBUILDER_FREEZEFLOWRELEASE   = NAVI44_FLOW_NLCp5_Flow
+TILEBUILDER_FREEZEDATARELEASE   = NAVI44_FLOW_NLCp5_Data
+TILEBUILDER_FREEZESTACKDATARELEASE  = NAVI44_CFLOW_Data
+TILEBUILDER_SEPARATE_STACK_PARAMS_LABEL = NAVI44_CFLOW_Data
+TILEBUILDER_SEPARATE_STACK_PARAMS_TREE  = soc_pd_n5
+",simon1.chen@amd.com
+could you start a new run with following params ,start_new_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir $file,12,start run,,,simon1.chen@amd.com
+could you start a new TB ,start_new_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir $file,12,start run,,,simon1.chen@amd.com
+could you start a run  with following params ,start_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir $file,13,start run,,,simon1.chen@amd.com
+could you start a session ,start_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir $file,13,start run,,,simon1.chen@amd.com
+could you start a run ,start_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir $file,13,start run,,,simon1.chen@amd.com
+could you start a new run  You can refer to,start_new_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir $file,13,start run,,,simon1.chen@amd.com
+could you create the link ,link_run_dir.csh $tile $runDir $refDir $tag $noLsf,14,generic,,,simon1.chen@amd.com
+could you link run ,link_run_dir.csh $tile $runDir $refDir $tag $noLsf,14,generic,,"Hi VTO0
+/proj/at2_til62_nobackup/VTO16/vdci_twix_ssbdci_t/250226161542402/main/pd/tiles/vdci_twix_ssbdci_t_branch_250305164339099_TileBuilder_Feb26_0319_89940_GUI 
+/proj/at2_til62_nobackup/VTO16/df_spf_t/250226154320270/main/pd/tiles/df_spf_t_branch_250305161204688_TileBuilder_Feb26_0252_56861_GUI 
+could you link run dir to following dir
+/proj/at2_til19_nobackup/simchen/vto0/test_link",simon1.chen@amd.com
+could you link run dir to following dir ,link_run_dir.csh $tile $runDir $refDir $tag $noLsf,14,generic,,,simon1.chen@amd.com
+could you link run dir ,link_run_dir.csh $tile $runDir $refDir $tag $noLsf,14,generic,,,simon1.chen@amd.com
+could you run the script ,run_command.csh $tile $runDir $refDir $file $tag,16,generic,,"Hi AI,
+could you source the script 
+/home/simchen/aigc/test.csh",simon1.chen@amd.com
+could you run the script ,run_command.csh $tile $runDir $refDir $file $tag,16,generic,,"Hi AI,
+could you source the script 
+/home/simchen/aigc/test.csh",simon1.chen@amd.com
+Please release reroute database ,release_best_run.csh $tile $runDir $tag,20,release,,"Hi vto0, 
+Could you release floorplan data? 
+/proj/at2_til46_nobackup/VTO0/df_spf_t/250305095906155/main/pd/tiles/df_spf_t_250305095906155_TileBuilder_Mar04_2103_75893_GUI ",simon1.chen@amd.com
+what tiles do you own ,report_ownTile.csh $ownTiles $tag $noLsf,21,report,,"Hi AI,
+What tile do you own",simon1.chen@amd.com
+what is your run disk ,report_disk.csh $disk $tag $noLsf,22,report,,,simon1.chen@amd.com
+what is the progress ,report_runProgress.csh $tile $runDir $refDir $integer $unit $repeat $tag,23,report,support quoting mail,,simon1.chen@amd.com
+what is the run progress ,report_runProgress.csh $tile $runDir $refDir $integer $unit $repeat $tag,23,report,support quoting mail,,simon1.chen@amd.com
+what is the run status ,report_runProgress.csh $tile $runDir $refDir $integer $unit $repeat $tag,23,report,support quoting mail,,simon1.chen@amd.com
+could you report the run progress every 2 hours,report_runProgress.csh $tile $runDir $refDir $integer $unit $repeat $tag,23,report,support quoting mail,,simon1.chen@amd.com
+could you stop report the run progress,stop_report_runProgress.csh $tile $runDir $refDir $tag,23,report,support quoting mail,,simon1.chen@amd.com
+could you update flow with following command,sync_flow_env.csh $tile $runDir $refDir $tag,26,update,,,simon1.chen@amd.com
+could you update flow for,sync_flow_env.csh $tile $runDir $refDir $tag,26,update,,,simon1.chen@amd.com
+could you help monitor my run,monitor_run.csh $refDir $tag $noLsf,29,generic,,,simon1.chen@amd.com
+what is the congestion status ,report_tileStatus.csh $tile $runDir $refDir $tag,30,report,support quoting mail,"Hi AI,
+what is the congestion status ",simon1.chen@amd.com
+could you update the params  ,update_params.csh $tile $runDir $refDir $params $target $tag,31,update,support quoting mail,"Hi AI, 
+Could you update the params for df_rpt_6_t 
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_2023_06_07_16_11_20_919000_00_00_TileBuilder_Jun07_0451_54336_GUI/ 
+CCD_MAX_POSTPONE = 40 
+CCD_MAX_POSTPONE_PD = 40 ",simon1.chen@amd.com
+could you add the params  ,update_params.csh $tile $runDir $refDir $params $target $tag,31,update,support quoting mail,"Hi AI, 
+Could you add the params for df_rpt_6_t 
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_2023_06_07_16_11_20_919000_00_00_TileBuilder_Jun07_0451_54336_GUI/ 
+CCD_MAX_POSTPONE = 40 
+CCD_MAX_POSTPONE_PD = 40 ",simon1.chen@amd.com
+could you rerun the  ,rerun_target.csh $tile $runDir $refDir $target $tag,33,update,support quoting mail,"Hi AI, 
+Could you rerun the FxCts for df_rpt_6_t in following dir 
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_branch_2023_06_25_12_26_50_129000_00_00_TileBuilder_Jun07_0451_54336_GUI ",simon1.chen@amd.com
+could you rerun the  ,rerun_target.csh $tile $runDir $refDir $target $tag,33,update,support quoting mail,"Hi AI, 
+Could you rerun the FxCts for df_rpt_6_t in following dir 
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_branch_2023_06_25_12_26_50_129000_00_00_TileBuilder_Jun07_0451_54336_GUI ",simon1.chen@amd.com
+could you re-get def ,reget_def.csh $tile $runDir $refDir $target $tag,34,rerun,,rerun ShGetDef,simon1.chen@amd.com
+could you get def ,reget_def.csh $tile $runDir $refDir $target $tag,34,rerun,,rerun ShGetDef,simon1.chen@amd.com
+could you rerun getdef ,reget_def.csh $tile $runDir $refDir $target $tag,34,rerun,,,simon1.chen@amd.com
+could you TileBuilderOverwriteCommand ,tb_overwriteCommand.csh $tile $runDir $refDir $file $regu $target $tag,35,update,,,simon1.chen@amd.com
+could you predict the tile congestion ,what_if_congestion.csh $tile $runDir $refDir $tag,36,analysis,,,simon1.chen@amd.com
+could you do what-if for congestion ,what_if_congestion.csh $tile $runDir $refDir $tag,36,analysis,,,simon1.chen@amd.com
+could you do what-if analysis for congestion ,what_if_congestion.csh $tile $runDir $refDir $tag,36,analysis,,,simon1.chen@amd.com
+could you predict the congestion ,what_if_congestion.csh $tile $runDir $refDir $tag,36,analysis,,,simon1.chen@amd.com
+could you remove the following dir,remove_dir.csh $refDir $file  $tag $noLsf,37,generic,support quoting mail,"Hi AI, 
+could you remove the following dir 
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_branch_2023_06_25_12_26_50_129000_00_00_TileBuilder_Jun07_0451_54336_GUI/test1 
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_branch_2023_06_25_12_26_50_129000_00_00_TileBuilder_Jun07_0451_54336_GUI/test2 
+",simon1.chen@amd.com
+could you remove the following run,remove_dir.csh $refDir $file  $tag $noLsf,37,generic,support quoting mail,,simon1.chen@amd.com
+what is the disk usage ,disk_usage.csh $refDir $file $tag,38,report,,,simon1.chen@amd.com
+what is the disk usage for following dir,disk_usage.csh $refDir $file $tag,38,report,,"Hi AI,
+    what is the disk usage for following dir
+/proj/navi4n6-aid-pdclk1-nobackup/simchen/df_rpt_6_t/Wed_Jun__7_04_51_32_EDT_2023/main/pd/tiles/df_rpt_6_t_branch_2023_06_25_12_26_50_129000_00_00_TileBuilder_Jun07_0451_54336_GUI",simon1.chen@amd.com
+could you help to check if the following dir exist,disk_usage.csh $refDir $file $tag,38,report,,,simon1.chen@amd.com
+could you help to check if the following file exist,disk_usage.csh $refDir $file $tag,38,report,,,simon1.chen@amd.com
+could you help to restart the TB ,restart_TB.csh $tile $runDir $refDir $tag,40,start run,,"Hi vto5, 
+Could you restart TB? 
+/proj/cmb_fct_vol2/guanhguo/SPT/seras/spt0502/main/pd/tiles/sptMID_df_req_ctl_skewcheck_CHIPMID_func_nonmv_flat_nonsi_NLCReRoute_SDC09_PropagatedClk_20250502_partial ",simon1.chen@amd.com
+could you help to restart run ,restart_TB.csh $tile $runDir $refDir $tag,40,start run,,,simon1.chen@amd.com
+could you help to restart the seras ,restart_TB.csh $tile $runDir $refDir $tag,40,start run,,,simon1.chen@amd.com
+could you list the instruction ,list_instruction.csh $tag $noLsf,45,report,,,simon1.chen@amd.com
+what can you do,list_instruction.csh $tag $noLsf,45,report,,,simon1.chen@amd.com
+sync flow environment ,sync_flow_env.csh $tile $runDir $refDir $tag,47,update,,"Hi VTO16 
+/proj/at2_til62_nobackup/VTO16/df_spf_t/250418140335466_sub2/main/pd/tiles/df_spf_t_branch_250429115143055_TileBuilder_Apr18_0208_4162_GUI 
+Could you Sync flow environment ",simon1.chen@amd.com
+TileBuilderGenParams ,tb_gen.csh $tile $runDir $refDir $tag,48,update,,,simon1.chen@amd.com
+TileBuilderMake ,tb_make.csh $tile $runDir $refDir $tag,49,update,,,simon1.chen@amd.com
+could you help to stop the TB in following dir ,stop_TB.csh $tile $runDir $refDir $tag $noLsf,50,start run,,,simon1.chen@amd.com
+could you help to stop the TB,stop_TB.csh $tile $runDir $refDir $tag $noLsf,50,start run,,,simon1.chen@amd.com
+could you help generate bom.json ,gen_bom_json.csh $tile $runDir $refDir $tag $noLsf,51,generic,support quoting mail,,simon1.chen@amd.com
+could you submit the def ,submit_def.csh $tile $runDir $refDir $target $tag $noLsf,53,generic,support quoting mail,,simon1.chen@amd.com
+could you take the following assignment ,take_assignment.csh $tag $noLsf,54,update,,,simon1.chen@amd.com
+could you update the following assignment ,take_assignment.csh $tag $noLsf,54,update,,,simon1.chen@amd.com
+could you update params to params center,update_params_to_center.csh $tile $runDir $refDir $tag  $noLsf,55,update,,,simon1.chen@amd.com
+could you update  tune to tune center,update_tune_to_center.csh $tile $runDir $refDir $target $file $tag  $noLsf,56,update,,"Hi VTO0,
+     Could you update the tune to tune center for df_tcdx_a0_t for 
+/home/simchen/.placerams.tcl",simon1.chen@amd.com
+could you update tune to tune center,update_tune_to_center.csh $tile $runDir $refDir $target $file $tag  $noLsf,56,update,,,simon1.chen@amd.com
+could you update params from params center,update_params_from_center.csh $tile $runDir $refDir $tag  $noLsf,57,update,,,simon1.chen@amd.com
+could you update tune from tune center,update_tune_from_center.csh $tile $runDir $refDir $target $tag  $noLsf,58,update,,"Hi VTO16 
+/proj/at2_til62_nobackup/VTO16/dfx_dft_t/250226154320270/main/pd/tiles/dfx_dft_t_branch_250306151158890_TileBuilder_Feb26_0252_57362_GUI 
+update tune from tune center for dfx_dft_t ",simon1.chen@amd.com
+could you update tune from tune center,update_tune_from_center.csh $tile $runDir $refDir $target $tag  $noLsf,58,update,,,simon1.chen@amd.com
+could you release data ,release_data.csh $tile $runDir $refDir $stage $file $tag $noLsf,59,generic,,,simon1.chen@amd.com
+could you release ,release_data.csh $tile $runDir $refDir $stage $file $tag $noLsf,59,update,,,simon1.chen@amd.com
+could you  release place data,release_data.csh $tile $runDir $refDir $stage $file $tag $noLsf,59,update,,,simon1.chen@amd.com
+could you  release floorplan data,release_data.csh $tile $runDir $refDir $stage $file $tag $noLsf,59,update,,,simon1.chen@amd.com
+could you  release route data,release_data.csh $tile $runDir $refDir $stage $file $tag $noLsf,59,update,,,simon1.chen@amd.com
+could you  release reroute data,release_data.csh $tile $runDir $refDir $stage $file $tag $noLsf,59,update,,,simon1.chen@amd.com
+could you copy def to dir,cp_def.csh $tile $runDir $refDir $tag $noLsf,61,generic,,"Hi VTO17, 
+Could you copy def to dir? 
+/proj/at2_til27_nobackup/PD_def_submit/NLC_SOC_20250520 
+/proj/at2_til62_nobackup/VTO17/NLC/VTO17/cf_ctsen_t/250516154420541/main/pd/tiles/cf_ctsen_t_0519 
+/proj/at2_til62_nobackup/VTO17/NLC/VTO17/vdci_soc_ucie_t/250516155812776/main/pd/tiles/vdci_soc_ucie_t_vdci_soc_ucie_t_0519_oa_TileBuilder_May16_0412_103966_GUI ",simon1.chen@amd.com
+could you update the seras environment,update_seras_env.csh $tile $runDir $refDir $tag,62,update,,,simon1.chen@amd.com
+TileBuilderUpdateSeras,update_seras_env.csh $tile $runDir $refDir $tag,62,update,,,simon1.chen@amd.com
+could you show the floorplan map,show_map.csh $tile $runDir $refDir $stage $file $tag,63,generic,,,simon1.chen@amd.com
+could you update the flow file,sync_flow_file.csh $tile $runDir $refDir $p4File $tag,64,update,,,simon1.chen@amd.com
+could you sync the flow file,sync_flow_file.csh $tile $runDir $refDir $p4File $tag,64,update,,,simon1.chen@amd.com
+could you sync the version,sync_flow_file.csh $tile $runDir $refDir $p4File $tag,64,update,,,simon1.chen@amd.com
+could you sync,sync_flow_file.csh $tile $runDir $refDir $p4File $tag,64,update,,,simon1.chen@amd.com
+could you check the clock overlap with mem,check_clock_mem_overlap.csh $tile $runDir $refDir $tag,65,check,,,simon1.chen@amd.com
+could you show TB console ,show_tb_console.csh $tile $runDir $refDir $tag,66,generic,,"Hi vto4,
+    Could you show TB console for usb0_phy_t?",simon1.chen@amd.com
+could you stop monitor,stop_vto_monitor.csh $tile $runDir $refDir $tag $noLsf,67,generic,,,simon1.chen@amd.com
+could you stop vto monitor,stop_vto_monitor.csh $tile $runDir $refDir $tag $noLsf,67,generic,,,simon1.chen@amd.com
+could you start vto monitor,start_vto_monitor.csh $tile $runDir $refDir $tag $noLsf,68,generic,,,simon1.chen@amd.com
+could you add the command to ,add_command_to_tune.csh $tile $runDir $refDir $tune $tag $noLsf,69,update,,"Hi vto8, 
+could add command to 
+tune/FxFpGenInternalPowerGrid/FxFpGenInternalPowerGrid.userprocs.tcl ? 
+/proj/cmb_pnr_vol12/VTO8/io_avfs_socio_mid_t/241111154439327/main/pd/tiles/io_avfs_socio_mid_t_241111154439327_TileBuilder_Nov11_0248_234070_GUI 
+source /tool/aticad/1.0/src/zoo/PD_agent/tile/stop_target.tcl ",simon1.chen@amd.com
+could you add the option to,add_command_to_tune.csh $tile $runDir $refDir $tune $tag $noLsf,69,update,,,simon1.chen@amd.com
+what is current job,show_jobs.csh $tile $runDir $refDir $tag $noLsf,70,LSF,,,simon1.chen@amd.com
+could you show job ,show_jobs.csh $tile $runDir $refDir $tag $noLsf,70,LSF,,,simon1.chen@amd.com
+could you kill the job ,kill_jobs.csh $tile $runDir $refDir $integer $tag $noLsf,71,LSF,,"Hi vir0, 
+Could you kill the job? 
+1381969 
+1381745 ",simon1.chen@amd.com
+what is the release status ,report_releaseStatus.csh $tile $runDir $refDir $tag,73,report,,,simon1.chen@amd.com
+could you report flow issue ,report_flowIssue.csh $tile $runDir $refDir $tag,74,report,,,simon1.chen@amd.com
+what is the flow issue  ,report_flowIssue.csh $tile $runDir $refDir $tag,74,report,,"Hi vto8, 
+Could you report flow issue? ",simon1.chen@amd.com
+what is create_context_for_sub_block,report_argument.csh $tile $file $p4File $csh $perl $runDir $refDir $digit $date $integer $unit $repeat $regu $table $preposition $stage $target $cmds $snpstcl $analogip $std $params $controls $tune $edatool $tag ,75,report,,,simon1.chen@amd.com
+could you try following tool version ,try_tool_version.csh $tile $runDir $refDir $edatool $tag $noLsf,76,update,,"Hi VTO16 
+could you try following tool version 
+fusioncompiler/2022.12-SP6-VAL-20250304 ",simon1.chen@amd.com
+could you try following version ,try_tool_version.csh $tile $runDir $refDir $edatool $tag $noLsf,76,update,,,simon1.chen@amd.com
+could you get sdc ,reget_sdc.csh $tile $runDir $refDir $tag,77,rerun,,could you rerun GetSdc,simon1.chen@amd.com
+could you remove params ,remove_params.csh $tile $runDir $refDir $tag $noLsf,79,generic,,,simon1.chen@amd.com
+what is the frequency ,report_freq.csh $tile $runDir $refDir $tag,80,report,,,simon1.chen@amd.com
+could you update the argument ,update_argument.csh $tag $noLsf,83,update,,,simon1.chen@amd.com
+what is the assignment,report_assignment.csh $tag $noLsf,84,report,,,simon1.chen@amd.com
+could you generate the run dir tree,gen_run_dir_tree.csh $tile $runDir $refDir $tag,85,report,,"Hi vto1, 
+Could you show dir tree? 
+/proj/westelk/a0/tiles/ECO/df_cake_xgmi_t/eco_fct_only/ ",simon1.chen@amd.com
+new disk is ready ,new_disk.csh $refDir $tag $noLsf,86,update,,,simon1.chen@amd.com
+could you pip install ,pip_install.csh $file $tag $noLsf,87,update,,,simon1.chen@amd.com
+could you update pd agent project tune ,update_pd_agent_project_tune.csh $tile $runDir $refDir $file $tag  $noLsf,88,update,,,simon1.chen@amd.com
+could you update project tune ,update_pd_agent_project_tune.csh $tile $runDir $refDir $file $tag  $noLsf,88,update,,,simon1.chen@amd.com
+could you report p4 version ,check_p4_version.csh $tile $runDir $refDir $p4File $tag  $noLsf,89,report,,"Could you report p4 version? 
+//gpuH/cumberland/main/pd/tiles/ProjectTune/a0/tune/FxFpPlaceMacros/FxFpPlaceMacros.postplace.tcl#2 ",simon1.chen@amd.com
+could you report p4 file version ,check_p4_version.csh $tile $runDir $refDir $p4File $tag  $noLsf,89,report,,,simon1.chen@amd.com
+could you report file version,check_p4_version.csh $tile $runDir $refDir $p4File $tag  $noLsf,89,report,,,simon1.chen@amd.com
+could you report the run dir 5 days ago ,report_ago_runDir.csh $tile $runDir $integer $tag $noLsf  $noLsf,90,report,,,simon1.chen@amd.com
+could you report the  dir 5 days ago,report_ago_runDir.csh $tile $runDir $integer $tag $noLsf  $noLsf,90,report,,,simon1.chen@amd.com
+could you remove the command,remove_command_from_tune.csh $tile $runDir $refDir $tune $tag $noLsf,91,update,,,simon1.chen@amd.com
+could you check clock tile conform for umc_umcch_t,check_clock_tile_conform.csh $tile $runDir $refDir $file $tag,92,report,,,simon1.chen@amd.com
+could you restart seras lsf,restart_seras_lsf.csh $tile $runDir $refDir $tag,93,start run,,,simon1.chen@amd.com
+could you rerun the  only ,rerun_target_only.csh $tile $runDir $refDir $target $tag,94,update,,rerun only FxReRoute,simon1.chen@amd.com
+could you show dir tree ,show_dir_tree.csh $tile $runDir $refDir $tag,95,update,,,simon1.chen@amd.com
+could you change the seras owner to you ,change_seras_owner.csh $tile $runDir $refDir $tag,96,update,,,simon1.chen@amd.com
+what is the timing issue ,report_timingIssue.csh $tile $runDir $refDir $clk $tag,97,report,,,simon1.chen@amd.com
+could you report timing issue ,report_timingIssue.csh $tile $runDir $refDir $clk $tag,97,report,,"Hi vto1, 
+Could you report timing issue? 
+/proj/frontrange_pdtil1_er_nobackup/VTO1/umc_umcch_t/250312150244313_sub1/main/pd/tiles/umc_umcch_t_250312150244313_sub1_TileBuilder_Mar12_0306_62356_GUI ",simon1.chen@amd.com
+could you add the macro to ,add_analog_to_list.csh $tile $runDir $refDir $file $analogip $tag $noLsf,98,update,,,simon1.chen@amd.com
+could you stop report the status ,stop_report_tileStatus.csh $tile $runDir $refDir $tag $noLsf,99,report,support quoting mail,,simon1.chen@amd.com
+could you help forget monitor run ,forget_monitor_run.csh $tile $runDir $refDir $tag $noLsf,100,generic,,,simon1.chen@amd.com
+could you generate pin pair ,generate_pin_pair.csh $tile $runDir $refDir $tag,101,generic,support quoting mail,,simon1.chen@amd.com
+could you remove TB dir ,remove_tb_dir.csh $refDir $file  $tag,102,generic,support quoting mail,,simon1.chen@amd.com
+could you place pin ,place_pin.csh  $tile $runDir $refDir $file $tag,103,update,support quoting mail,"Hi vto6, 
+could you place pin for vdci_art_mid_t? 
+/proj/cmb_pnr_vol12/vto6/vdci_art_mid_t/241203083116797/main/pd/tiles/vdci_art_mid_t_241203083116797_TileBuilder_Dec02_1934_71272_GUI ",simon1.chen@amd.com
+could you do pin assignment ,place_pin.csh  $tile $runDir $refDir $file $tag,103,update,support quoting mail,,simon1.chen@amd.com
+could you stop run ,stop_run.csh $tile $runDir $refDir $tag $noLsf,104,stop run,support quoting mail,,simon1.chen@amd.com
+could you clean run  ,clean_run.csh $tile $runDir $refDir $tag $noLsf,105,generic,support quoting mail,"Hi vto9, 
+/proj/cmb_pnr_vol12/vto9/secip_mp1_mid_t/241203081045827/main/pd/tiles/secip_mp1_mid_t_241203081045827_TileBuilder_Dec02_1913_176613_GUI 
+/proj/cmb_pnr_vol12/vto9/secip_nht_mid_t/241203081045827/main/pd/tiles/secip_nht_mid_t_241203081045827_TileBuilder_Dec02_1913_179445_GUI 
+Could you add mem for FxRoute? 
+160000 ",simon1.chen@amd.com
+wait for result  ,wait_result.csh $tile $runDir $refDir $file $tag,106,generic,,,simon1.chen@amd.com
+enable user floorplan ,enable_user_floorplan.csh $tile $runDir $refDir $file $tag,107,update,support quoting mail,,simon1.chen@amd.com
+make run ,make_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir $file,108,start run,,,simon1.chen@amd.com
+make new run ,make_new_run.csh $project $tile $runDir $disk  $params $tune $tag $table $refDir $file,109,start run,,"Hi vto1, 
+Could you make new run for umc_umcch_t? 
+/proj/frontrange_pdtil1_er_nobackup/VTO1/umc_umcch_t/250328103443261_sub1/main/pd/tiles/umc_umcch_t_250328103443261_sub1_TileBuilder_Mar27_2239_64537_GUI 
+FLOORPLAN_VLG = /proj/mcip_sde_er_users01/nnidagat/umc15_0_syn_LSD/main/pd/tiles/umc_umcch_t_853834_1800/data/Synthesize.v.gz ",simon1.chen@amd.com
+use llm ,use_llm.csh $tile $runDir $refDir $file $tag $noLsf,110,generic,support quoting mail,,simon1.chen@amd.com
+start supra regression ,start_supra_regression.csh $project $ip $runDir $disk  $params $tune $tag $table $refDir,108,start run,,"Hi vto1, 
+Use llm 
+If I want to know which stage of the PNR, which instructions should I use? ",simon1.chen@amd.com
+fix seras database,fix_seras_database.csh $tile $runDir $refDir $file $tag,109,restart run,support quoting mail,,simon1.chen@amd.com
+TileBuilderFixSerasDatabase,fix_seras_database.csh $tile $runDir $refDir $file $tag,109,restart run,support quoting mail,,simon1.chen@amd.com
+seras sanity fix,seras_sanity_fix.csh $tile $runDir $refDir $file $tag,110,update,support quoting mail,,simon1.chen@amd.com
+report pending task,report_pending_task.csh $tile $runDir $refDir $tag $noLsf,111,LSF,support quoting mail,,simon1.chen@amd.com
+rerun all target,rerun_all_target.csh $tile $runDir $refDir $target $tag,112,rerun,support quoting mail,,simon1.chen@amd.com
+could you rerun route timing,rerun_route_timing_only.csh $tile $runDir $refDir $target $tag,113,rerun,,,simon1.chen@amd.com
+could you rerun reroute timing,rerun_reroute_timing_only.csh $tile $runDir $refDir $target $tag,114,rerun,,,simon1.chen@amd.com
+could you rerun drclvs only,rerun_drclvs_only.csh $tile $runDir $refDir $target $tag,115,rerun,,,simon1.chen@amd.com
+could you rerun power,rerun_power_only.csh $tile $runDir $refDir $target $tag,116,rerun,,,simon1.chen@amd.com
+could you rerun pretiming,rerun_pretiming_only.csh $tile $runDir $refDir $target $tag,117,rerun,,,simon1.chen@amd.com
+could you rerun sort timing,rerun_sort_timing_only.csh $tile $runDir $refDir $target $tag,118,rerun,,,simon1.chen@amd.com
+could you rerun eqv,rerun_eqv_only.csh $tile $runDir $refDir $target $tag,119,rerun,,,simon1.chen@amd.com
+could you rerun dft,rerun_dft_only.csh $tile $runDir $refDir $target $tag,120,rerun,,,simon1.chen@amd.com
+could you rerun waiver,rerun_waiver_only.csh $tile $runDir $refDir $target $tag,121,rerun,,,simon1.chen@amd.com
+could you rerun prc,rerun_prc_only.csh $tile $runDir $refDir $target $tag,122,rerun,,,simon1.chen@amd.com
+could you rerun extract,rerun_extract_only.csh $tile $runDir $refDir $target $tag,123,rerun,,,simon1.chen@amd.com
+Delete temporary data,Delete_temporary_data $tile $runDir $refDir $target $tag,124,remove,,,simon1.chen@amd.com
+update tune from project,update_tune_from_project.csh $tile $runDir $refDir $target $tag  $noLsf,125,update,,,simon1.chen@amd.com
+could you skip  ,skip_target.csh $tile $runDir $refDir $target $tag,126,update,support quoting mail,"Hi vto1, 
+Could you skip FxPixCts ? 
+/proj/frontrange_pdtil1_nobackup/VTO1/umc_umcctrl_t/250308191917024_sub1/main/pd/tiles/umc_umcctrl_t_250308191917024_sub1_TileBuilder_Mar08_0623_9116_GUI 
+/proj/frontrange_pdtil1_nobackup/VTO1/umc_umcctrl_t/250308191854584_sub1/main/pd/tiles/umc_umcctrl_t_250308191854584_sub1_TileBuilder_Mar08_0639_6911_GUI ",simon1.chen@amd.com
+could you unskip  ,unskip_target.csh $tile $runDir $refDir $target $tag,127,update,support quoting mail,"Hi vto1, 
+Could you unskip FxPixCts ? 
+/proj/frontrange_pdtil1_nobackup/VTO1/umc_umcctrl_t/250308191917024_sub1/main/pd/tiles/umc_umcctrl_t_250308191917024_sub1_TileBuilder_Mar08_0623_9116_GUI 
+/proj/frontrange_pdtil1_nobackup/VTO1/umc_umcctrl_t/250308191854584_sub1/main/pd/tiles/umc_umcctrl_t_250308191854584_sub1_TileBuilder_Mar08_0639_6911_GUI ",simon1.chen@amd.com
+report rtl pd qor,report_rtl_pd_qor.csh $tile $runDir $refDir $file $tag,128,report,support quoting mail,,simon1.chen@amd.com
+add mem for,add_mem_for_target.csh $tile $runDir $refDir $target $integer $tag,129,update,support quoting mail,"Hi vto9, 
+/proj/cmb_pnr_vol12/vto9/secip_mp1_mid_t/241203081045827/main/pd/tiles/secip_mp1_mid_t_241203081045827_TileBuilder_Dec02_1913_176613_GUI 
+/proj/cmb_pnr_vol12/vto9/secip_nht_mid_t/241203081045827/main/pd/tiles/secip_nht_mid_t_241203081045827_TileBuilder_Dec02_1913_179445_GUI 
+Could you add mem for FxRoute? 
+160000 ",simon1.chen@amd.com
+could you check release database,release_status.csh $tile $runDir $refDir $file $tag $noLsf,130,report,,,tarakarajasekhar.gullipalli@amd.com
+could you write /placerams.tcl?,write_file.csh $tile $runDir $refDir $file $tag $noLsf,131,report,support quoting mail,,simon1.chen@amd.com
+could you load timing,load_timing.csh $tile $runDir $refDir $file $tag $noLsf,132,interactive,support quoting mail,"Hi vto1, 
+Could you load timing cmds/PtTimFuncTT0p6vReRouteTyprc100cTT0P6V0CStp.cmd ? 
+/proj/frontrange_pdtil1_nobackup/VTO1/umc_umcctrl_t/250308191838687_sub1/main/pd/tiles/umc_umcctrl_t_250308191838687_sub1_TileBuilder_Mar08_0655_4766_GUI 
+/tools/aticad/1.0/src/zoo/PD_agent/tile/get_timing_feature.tcl ",simon1.chen@amd.com
+could you check timing margin,check_timing_margin.csh $tile $runDir $refDir $clk $file $tag,133,report,support quoting mail,"Hi vto1, 
+Could you check timing margin cmds/PtTimFuncTT0p6vReRouteTyprc100cTT0P6V0CStp.cmd for UMC_UCLK? 
+/proj/frontrange_pdtil1_nobackup/VTO1/umc_umcctrl_t/250409094438014_sub1/main/pd/tiles/umc_umcctrl_t_250409094438014_sub1_TileBuilder_Apr08_2150_124175_GUI 
+/proj/frontrange_pdtil1_nobackup/VTO1/umc_umcctrl_t/250407101327057_sub1/main/pd/tiles/umc_umcctrl_t_250407101327057_sub1_TileBuilder_Apr06_2219_55512_GUI ",simon1.chen@amd.com
+could you fix eco timing?,fix_eco_timing.csh $tile $runDir $refDir $clk $file $tag,134,report,support quoting mail,"Hi vto1, 
+Could you fix eco timing cmds/PtTimFuncTT0p6vReRouteTyprc100cTT0P6V0CStp.cmd for UMC_UCLK? 
+/proj/frontrange_pdtil1_er_nobackup/VTO1/umc_umcch_t/250427094707304_sub1/main/pd/tiles/umc_umcch_t_250427094707304_sub1_TileBuilder_Apr26_2150_63059_GUI ",simon1.chen@amd.com
+could you add description?,add_note.csh $tile $runDir $refDir $file $tag,135,update,support quoting mail,,simon1.chen@amd.com
+could you add note?,add_note.csh $tile $runDir $refDir $file $tag,135,update,support quoting mail,,simon1.chen@amd.com
+could you hack sdc?,hack_sdc.csh $tile $runDir $refDir $file $tag,136,update,support quoting mail,,simon1.chen@amd.com
+could you optimize run ,optimize_run.csh $tile $runDir $refDir $target $params $tune $tag $table $clk $regu $integer,137,start run,support quoting mail,,simon1.chen@amd.com
+could you copy TB?,copy_tb.csh  $tile $runDir $refDir $file $tag,138,start run,support quoting mail,"Hi vto1, 
+Could you copy tb? 
+/proj/frontrange_pdtil1_nobackup/simchen/test_tb_copy 
+/proj/frontrange_pdtil1_nobackup/VTO1/umc_umcctrl_t/250403170838586_sub1/main/pd/tiles/umc_umcctrl_t_250403170838586_sub1_TileBuilder_Apr03_0515_31048_GUI ",simon1.chen@amd.com
+TileBuilderCopy,copy_tb.csh  $tile $runDir $refDir $file $tag,138,start run,support quoting mail,use tileBulderCopy to copy the whole tb run to new dir.,simon1.chen@amd.com
+could you show timing wall?,show_timingWall.csh $tile $runDir $refDir $clk $target $tag,139,report,support quoting mail,"Hi vto1,
+     Could you show timing wall UMC_UCLK FxPixOptCts
+/proj/frontrange_pdtil1_er_nobackup/VTO1/umc_umcch_t/250515092857948_sub1/main/pd/tiles/umc_umcch_t_250515092857948_sub1_TileBuilder_May14_2134_65695_GUI
+/proj/frontrange_pdtil1_er_nobackup/VTO1/umc_umcch_t/250515092857948_sub2/main/pd/tiles/umc_umcch_t_250515092857948_sub2_TileBuilder_May14_2134_65953_GUI",simon1.chen@amd.com
+could you create file?,create_file.csh  $tile $runDir $refDir $file $tag,140,generic,support quoting mail,,
+TileBuilderMakeDSO,tb_makeDSO.csh $tile $runDir $refDir $tag,141,update,support quoting mail,,simon1.chen@amd.com
+route net,route_net.csh $tile $runDir $refDir $target $tag,142,rerun,support quoting mail,,
+could you align vdci pin ,align_vdci_pin.csh  $tile $runDir $refDir $file $integer $tag,143,update,support quoting mail,"Hi vto6, 
+could you place pin for vdci_art_mid_t? 
+/proj/cmb_pnr_vol12/vto6/vdci_art_mid_t/241203083116797/main/pd/tiles/vdci_art_mid_t_241203083116797_TileBuilder_Dec02_1934_71272_GUI ",simon1.chen@amd.com
+could you report power?,report_power.csh $tile $runDir $refDir $file $tag,144,report,support quoting mail,"Hi vto1, 
+Could you report power cmds/PtTimFuncTT0p6vReRouteTyprc100cTT0P6V0CStp.cmd ? 
+/proj/frontrange_pdtil1_er_nobackup/VTO1/umc_umcch_t/250427094707304_sub1/main/pd/tiles/umc_umcch_t_250427094707304_sub1_TileBuilder_Apr26_2150_63059_GUI ",simon1.chen@amd.com
+what is the  runtime?,report_runTime.csh $tile $runDir $refDir $target $tag,145,report,support quoting mail,"Hi vto1,
+    What is the runtime for FxReRoute for tsv_ssbdci_gl2_ss_avfs_aid_t ?",simon1.chen@amd.com
+could you report runtime?,report_runTime.csh $tile $runDir $refDir $target $tag,145,report,support quoting mail,"Hi vto1,
+    could you report runtime for FxReRoute for tsv_ssbdci_gl2_ss_avfs_aid_t ?",simon1.chen@amd.com
+could you fill checklist?,fill_checklist.csh $tile $runDir $refDir $tag,146,report,support quoting mail,,
+could you fix base DRC?,fix_baseDrc.csh $tile $runDir $refDir $tag,147,report,support quoting mail,,
+could you stop error pop up?,stop_error_pop_up.csh $tile $runDir $refDir $tag,148,report,support quoting mail,,
+could you run clock flow target?,run_clock_flow_target.csh $tile $runDir $refDir $target $tag,149,rerun,support quoting mail,,
+could you check clock release pointer?,check_clock_release_pointer.csh $tile $runDir $refDir $file $tag,150,rerun,support quoting mail,,
+could you rerun only matching,rerun_target_only_matching.csh $tile $runDir $refDir $target $regu $tag,151,rerun,support quoting mail,,

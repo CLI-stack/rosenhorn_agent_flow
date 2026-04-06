@@ -1,0 +1,5 @@
+cd /tool/aticad/1.0/src/zoo/PD_agent/tile
+foreach f (` resolve * */* */*/* */*/*/* */*/*/*/*`)
+    p4 have $f
+end
+cd 

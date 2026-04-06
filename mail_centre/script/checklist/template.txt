@@ -1,0 +1,5 @@
+could you finish cshell based on below description?
+1. the csh content start and end with "#####".
+2. the csh's  output "pass or fail" based on the description.
+3. if the description has csh command, use the existing command as much as possible
+description:

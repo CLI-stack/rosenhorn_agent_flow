@@ -1,0 +1,9 @@
+P4PORT=atlvp4p01.amd.com:1666
+P4CLIENT=aticad_lihzheng_202402111119
+
+
+p4 edit $your.script
+p4 submit
+aticad sync $your.script 
+
+/proj/cmb_pnr_vol21/simchen/aticad/depot/tools/aticad/1.0/src/zoo/PD_agent
