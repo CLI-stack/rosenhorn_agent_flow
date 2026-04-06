@@ -55,40 +55,44 @@ class HtmlGenerator:
         self.style_applied = '''
                 body {
                     font-family: 'Segoe UI', Arial, sans-serif;
-                    font-size: 13px;
+                    font-size: 16px;
                     color: #333;
-                    line-height: 1.5;
-                    margin: 20px;
+                    line-height: 1.6;
+                    margin: 30px;
                 }
                 h2 {
                     color: #0066cc;
                     border-bottom: 2px solid #0066cc;
-                    padding-bottom: 8px;
-                    margin-top: 25px;
+                    padding-bottom: 10px;
+                    margin-top: 32px;
+                    font-size: 22px;
                 }
                 h3 {
                     color: #0066cc;
-                    margin-top: 20px;
+                    margin-top: 24px;
+                    font-size: 18px;
                 }
                 table.gridtable {
                     border-collapse: collapse;
-                    margin: 15px 0;
-                    font-size: 12px;
+                    margin: 18px 0;
+                    font-size: 15px;
                     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
                 }
                 table.gridtable th {
                     background-color: tableColor;
                     color: #ffffff;
-                    padding: 10px 14px;
+                    padding: 13px 18px;
                     text-align: left;
                     font-weight: 600;
+                    font-size: 15px;
                     border: 1px solid #004499;
                 }
                 table.gridtable td {
-                    padding: 8px 14px;
+                    padding: 12px 18px;
                     border: 1px solid #ddd;
                     background-color: #ffffff;
                     text-align: left;
+                    font-size: 15px;
                 }
                 table.gridtable tr:nth-child(even) td {
                     background-color: #f8f9fa;
@@ -122,32 +126,34 @@ class HtmlGenerator:
                     text-decoration: underline;
                 }
                 li {
-                    margin-top: 5px;
-                    padding-left: 5px;
+                    margin-top: 8px;
+                    padding-left: 6px;
+                    font-size: 15px;
+                    line-height: 1.6;
                 }
                 ul {
-                    margin-top: 5px;
-                    padding-left: 10px;
+                    margin-top: 8px;
+                    padding-left: 20px;
                 }
                 div {
-                    margin-top: 10px;
+                    margin-top: 12px;
                 }
                 hr {
                     border: none;
                     border-top: 2px solid #e0e0e0;
-                    margin: 20px 0;
+                    margin: 28px 0;
                 }
                 .title {
                     color: #0066cc;
                     font-weight: bold;
-                    font-size: 14px;
+                    font-size: 17px;
                 }
                 .footer {
-                    margin-top: 30px;
-                    padding-top: 15px;
+                    margin-top: 36px;
+                    padding-top: 18px;
                     border-top: 1px solid #e0e0e0;
                     color: #666;
-                    font-size: 11px;
+                    font-size: 14px;
                 }
             '''
         self.style_applied = re.sub("tableColor",self.tableColor,self.style_applied)
