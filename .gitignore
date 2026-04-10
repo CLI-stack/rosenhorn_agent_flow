@@ -25,6 +25,7 @@ mail_centre/mailConfig.txt
 main_agent/script/genie_env.csh
 main_agent/script/atlassian_env.csh
 main_agent/script/jira_env.csh
+main_agent/docs/Rqual_RTL_TCM_Flows.pptx
 
 # Runtime logs and reports
 main_agent/*.log
