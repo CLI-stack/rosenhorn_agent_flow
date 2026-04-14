@@ -349,6 +349,7 @@ When `ECO_ANALYZE_MODE_ENABLED` is detected in output:
      TAG=<tag>
      REF_DIR=<ref_dir>
      TILE=<tile>
+     JIRA=<jira>
      LOG_FILE=<log_file>
      SPEC_FILE=<spec_file>
      BASE_DIR=<parent of the 'runs/' folder in LOG_FILE>
@@ -363,6 +364,7 @@ ECO_ANALYZE_MODE_ENABLED
 TAG=<tag>
 REF_DIR=<ref_dir>
 TILE=<tile>
+JIRA=<jira>
 LOG_FILE=<log_file>
 SPEC_FILE=<spec_file>
 ```
