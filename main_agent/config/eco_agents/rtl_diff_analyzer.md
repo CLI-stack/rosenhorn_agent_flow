@@ -46,7 +46,7 @@ For each change record:
 ```json
 {
   "file": "<rtl_file.v>",
-  "module_name": "<module_name_from_changed_file>",
+  "module_name": "<declaring_module>",
   "change_type": "<wire_swap|new_port|new_logic|port_connection>",
   "old_token": "<old_signal_name>",
   "new_token": "<new_signal_name>",
@@ -54,32 +54,17 @@ For each change record:
 }
 ```
 
-**`module_name`** = the module defined in the RTL file where the diff was found. Extract it from the `module <name>` line at the top of the changed file — do NOT infer it from signal usage in other files.
-
 ---
 
 ## Step C — Hierarchy Tracing (MANDATORY)
 
-**CRITICAL: Trace to the DECLARING module, not the usage module.**
-
-The signal may pass through multiple ancestor modules as a port. The hierarchy path MUST start from the module that **declares** the signal as `reg` or `wire` — NOT from any ancestor that merely passes it through as a port connection. If you stop at the wrong level, the hierarchy will be too shallow and the scope filter in eco_netlist_studier will be too wide.
-
 For EACH signal involved in a change, trace its full hierarchy:
 
-**1. Find the DECLARING module (reg/wire only — not port passthrough):**
-
+**1. Find the declaring module:**
 ```bash
-grep -rn "^\s*reg\b.*<signal>\|^\s*wire\b.*<signal>" <REF_DIR>/data/PreEco/SynRtl/
+grep -rn "reg.*<signal>\|wire.*<signal>\|input.*<signal>" <REF_DIR>/data/PreEco/SynRtl/
 ```
-
-Use anchored patterns (`^\s*reg\b`, `^\s*wire\b`) to find only **declarations**, not usages or port connections. The file that contains the declaration is the declaring module.
-
-- If the diff file is `rtl_<module_X>.v` → `module_name = <module_X>` (use the changed file's module directly)
-- Confirm by checking that `reg` or `wire` declaration of the signal exists in that file:
-```bash
-grep -n "^\s*reg\b.*<signal>\|^\s*wire\b.*<signal>" <REF_DIR>/data/PreEco/SynRtl/rtl_<module_X>.v
-```
-If NOT found → the signal is only a port in this file → look one level deeper (the signal is declared in a sub-module instantiated here).
+This tells you WHICH module file declares it → the module name.
 
 **2. Find that module's INSTANCE NAME in its parent:**
 ```bash
@@ -95,21 +80,17 @@ Extract the instance name from the instantiation line:
 grep -n "<parent_module_name>" <REF_DIR>/data/PreEco/SynRtl/rtl_<grandparent>.v
 ```
 
-**4. Build full path using INSTANCE NAMES — from declaring module up to tile:**
-- If tile=`<TILE>` and hierarchy is: tile → `<INST_A>` (instance of `<module_A>`) → `<INST_B>` (instance of `<module_B>`) and signal is DECLARED in `<module_B>`
+**4. Build full path using INSTANCE NAMES:**
+- If tile=`<TILE>` and hierarchy is: tile → `<INST_A>` (instance of `<module_A>`) → `<INST_B>` (instance of `<module_B>`)
 - Path = `<INST_A>/<INST_B>/signal_name`
-- The `hierarchy` array MUST reflect all levels down to the declaring module: `["<INST_A>", "<INST_B>"]`
 
-**5. Self-verify (MANDATORY before writing output):**
+**5. Self-verify:**
 ```bash
-# Confirm reg/wire declaration exists in the declaring module file
-grep -n "^\s*reg\b.*<signal>\|^\s*wire\b.*<signal>" <REF_DIR>/data/PreEco/SynRtl/rtl_<declaring_module>.v
-
-# Confirm instance name is correct at each level
-grep -n "<module_name> <instance_name>" <REF_DIR>/data/PreEco/SynRtl/rtl_<parent_module>.v
+# Confirm instance name is correct (replace placeholders with actual values)
+grep -n "^<module_name> <instance_name>\|<module_name>.*<instance_name> " <REF_DIR>/data/PreEco/SynRtl/rtl_<parent_module>.v
+# Confirm signal is in that module
+grep -n "<signal_name>" <REF_DIR>/data/PreEco/SynRtl/rtl_<module_name>.v
 ```
-
-If the `reg`/`wire` declaration is NOT found in the module you identified → you stopped too high — go one level deeper.
 
 ---
 
