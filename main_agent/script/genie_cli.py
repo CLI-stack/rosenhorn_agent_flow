@@ -1441,10 +1441,7 @@ class GenieCLI:
             # Check for arguments
             # Directory path
             if re.search(r'^/[a-zA-Z].*', word):
-                if os.path.isdir(word) or os.path.isdir(word.rstrip('/')):
-                    arguementInfo['refDir'] = arguementInfo['refDir'] + ":" + word.rstrip('/')
-                else:
-                    arguementInfo['file'] = arguementInfo['file'] + ":" + word
+                arguementInfo['refDir'] = arguementInfo['refDir'] + ":" + word.rstrip('/')
                 continue
 
             # Tune path (any path starting with tune/)
