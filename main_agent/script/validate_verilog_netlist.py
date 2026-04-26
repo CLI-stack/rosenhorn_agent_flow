@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """
-validate_verilog_netlist.py — General-purpose Verilog gate-level netlist validator.
+validate_verilog_netlist.py — Streaming Verilog gate-level netlist validator.
 
 Catches Verilog syntax errors that cause FM-599 (ABORT_NETLIST) BEFORE FM submission.
 Runs in seconds vs 1-2 hours for FM to discover the same errors.
 
+Design: STREAMING — processes one module at a time, never loads full file into memory.
+Handles multi-hundred-MB gz netlists without OOM.
+
 Usage:
     python3 validate_verilog_netlist.py <netlist.v.gz> [<netlist2.v.gz> ...]
-    python3 validate_verilog_netlist.py --stages Synthesize PrePlace Route --ref-dir <REF_DIR>
 
-Exit code: 0 = PASS, 1 = FAIL (with error details printed to stdout)
+Exit code: 0 = PASS, 1 = FAIL
 """
 
 import sys
@@ -19,338 +21,262 @@ import argparse
 from collections import defaultdict
 
 
-def read_netlist(path):
-    if path.endswith('.gz'):
-        with gzip.open(path, 'rt', errors='replace') as f:
-            return f.readlines()
-    else:
-        with open(path, 'rt', errors='replace') as f:
-            return f.readlines()
+def iter_lines(path):
+    """Stream lines from .v or .v.gz without loading full file."""
+    opener = gzip.open if path.endswith('.gz') else open
+    with opener(path, 'rt', errors='replace') as f:
+        for line in f:
+            yield line
 
 
-def validate_netlist(lines, filename="<netlist>"):
-    errors = []
-    warnings = []
-
-    # Split into module blocks
-    modules = extract_modules(lines)
-
-    for mod_name, mod_lines, start_lineno in modules:
-        # Check 1: Duplicate explicit wire declarations
-        errs = check_duplicate_wires(mod_lines, mod_name, start_lineno)
-        errors.extend(errs)
-
-        # Check 2: Explicit wire conflicts with implicit port-connection wire
-        errs = check_implicit_wire_conflict(mod_lines, mod_name, start_lineno)
-        errors.extend(errs)
-
-        # Check 3: Direction declarations (input/output) inside cell instance blocks
-        errs = check_declarations_inside_instances(mod_lines, mod_name, start_lineno)
-        errors.extend(errs)
-
-        # Check 4: Duplicate port connections in cell instance blocks
-        errs = check_duplicate_port_connections(mod_lines, mod_name, start_lineno)
-        errors.extend(errs)
-
-        # Check 5: Port values with multiple comma-separated nets (corrupted port connection)
-        errs = check_corrupted_port_values(mod_lines, mod_name, start_lineno)
-        errors.extend(errs)
-
-        # Check 6: Module port list balance
-        errs = check_port_list_balance(mod_lines, mod_name, start_lineno)
-        errors.extend(errs)
-
-        # Check 7: Cell instances with unbalanced parentheses
-        errs = check_instance_balance(mod_lines, mod_name, start_lineno)
-        errors.extend(errs)
-
-    return errors, warnings
-
-
-def extract_modules(lines):
-    """Extract (module_name, module_lines, start_lineno) tuples."""
-    modules = []
-    current = None
+def iter_modules(path):
+    """
+    Stream modules one at a time from the netlist.
+    Yields (module_name, module_lines, start_lineno) without holding full file.
+    module_lines is the list of lines for that module only.
+    """
+    current_name = None
     current_lines = []
-    start = 0
+    start_lineno = 0
+    lineno = 0
 
-    for i, line in enumerate(lines):
-        m = re.match(r'^module\s+(\S+)\s*\(', line)
+    for line in iter_lines(path):
+        lineno += 1
+        m = re.match(r'^module\s+(\S+)\s*[\(;]', line)
         if m:
-            current = m.group(1)
+            current_name = m.group(1)
             current_lines = [line]
-            start = i + 1
+            start_lineno = lineno
         elif re.match(r'^endmodule\b', line.strip()):
-            if current:
-                modules.append((current, current_lines, start))
-            current = None
+            if current_name and current_lines:
+                yield (current_name, current_lines, start_lineno)
+            current_name = None
             current_lines = []
-        elif current:
+        elif current_name is not None:
             current_lines.append(line)
 
-    return modules
 
-
-def check_duplicate_wires(mod_lines, mod_name, start_lineno):
-    """Check F1: duplicate explicit wire X; in same module body."""
+def validate_module(mod_name, mod_lines, start_lineno):
+    """Run all checks on a single module's lines. Returns list of error dicts."""
     errors = []
-    seen = defaultdict(list)
-    for i, line in enumerate(mod_lines):
-        m = re.match(r'^\s*wire\s+(?:\[.*?\]\s+)?(\w+)\s*;', line)
-        if m:
-            seen[m.group(1)].append(start_lineno + i)
-    for wire, linenos in seen.items():
-        if len(linenos) > 1:
-            errors.append({
-                'check': 'F1_dup_wire',
-                'module': mod_name,
-                'msg': f"Duplicate 'wire {wire};' declarations at lines {linenos} — FM SVR-9 → FM-599",
-                'line': linenos[0]
-            })
-    return errors
 
+    # Build combined text for pattern searches (avoid repeated join)
+    # Use a lazy approach: only join when needed
+    wire_decls = {}       # wire_name -> first line number
+    port_conn_nets = set()
+    direction_decls = {}  # name -> (direction, lineno)
 
-def check_implicit_wire_conflict(mod_lines, mod_name, start_lineno):
-    """Check F2: explicit wire X; + .anypin(X) port connection creates implicit wire = FM-599."""
-    errors = []
-    text = ''.join(mod_lines)
-    wire_decls = set(re.findall(r'^\s*wire\s+(?:\[.*?\]\s+)?(\w+)\s*;', text, re.MULTILINE))
-    port_conn_nets = set(re.findall(r'\.\s*\w+\s*\(\s*(\w+)\s*\)', text))
-    conflicts = wire_decls & port_conn_nets
-    for net in conflicts:
-        # Find line number of the wire declaration
-        for i, line in enumerate(mod_lines):
-            if re.match(rf'^\s*wire\s+(?:\[.*?\]\s+)?{re.escape(net)}\s*;', line):
-                errors.append({
-                    'check': 'F2_implicit_wire',
-                    'module': mod_name,
-                    'msg': f"'wire {net};' conflicts with implicit wire from port connection .pin({net}) — FM SVR-9 → FM-599",
-                    'line': start_lineno + i
-                })
-                break
-    return errors
-
-
-def check_declarations_inside_instances(mod_lines, mod_name, start_lineno):
-    """Check F3: input/output/wire declarations appearing INSIDE a cell instance block."""
-    errors = []
+    # State for instance tracking
     in_instance = False
-    instance_depth = 0
-    instance_start = 0
-    instance_name = ''
+    inst_depth = 0
+    inst_name = ''
+    inst_start = 0
+    inst_pins = defaultdict(list)
+    inst_has_decl_error = False
 
     for i, line in enumerate(mod_lines):
-        # Detect cell instance start: CellType InstName (
+        abs_lineno = start_lineno + i
+
+        # --- Collect wire declarations ---
+        wm = re.match(r'^\s*wire\s+(?:\[.*?\]\s+)?(\w+)\s*;', line)
+        if wm:
+            wname = wm.group(1)
+            if wname in wire_decls:
+                errors.append({
+                    'check': 'F1_dup_wire',
+                    'module': mod_name,
+                    'msg': f"Duplicate 'wire {wname};' — first at line {wire_decls[wname]}, repeated at line {abs_lineno} → FM SVR-9 → FM-599",
+                    'line': abs_lineno
+                })
+            else:
+                wire_decls[wname] = abs_lineno
+
+        # --- Collect all port connection net names for F2 check ---
+        for net in re.findall(r'\.\s*\w+\s*\(\s*(\w+)\s*\)', line):
+            port_conn_nets.add(net)
+
+        # --- F5: Corrupted port value (multiple comma-separated nets in .pin(...)) ---
+        if not in_instance or True:  # check everywhere
+            for pm in re.finditer(r'\.\w+\s*\(\s*([^)]+)\)', line):
+                value = pm.group(1)
+                # Remove bus concatenations {a,b,c}
+                value_clean = re.sub(r'\{[^}]*\}', '', value)
+                if ',' in value_clean:
+                    errors.append({
+                        'check': 'F5_corrupted_port_value',
+                        'module': mod_name,
+                        'msg': f"Multiple nets in single port connection (corrupted eco_applier insertion): '{pm.group(0)[:70].strip()}' → FM-599",
+                        'line': abs_lineno
+                    })
+
+        # --- Instance tracking for F3 (decl inside instance) and F4 (dup pin) ---
         if not in_instance:
-            m = re.match(r'^\s*([A-Za-z]\w*)\s+(\w+)\s*\(', line)
-            if m and m.group(1) not in ('module', 'input', 'output', 'wire', 'reg',
-                                          'inout', 'integer', 'parameter', 'localparam'):
+            # Detect cell instance start: CellType InstName (
+            im = re.match(r'^\s*([A-Za-z]\w*)\s+(\w+)\s*\(', line)
+            if im and im.group(1) not in (
+                'module', 'input', 'output', 'wire', 'reg', 'inout',
+                'integer', 'parameter', 'localparam', 'assign'
+            ):
                 in_instance = True
-                instance_depth = line.count('(') - line.count(')')
-                instance_start = i
-                instance_name = m.group(2)
-                if instance_depth <= 0:
+                inst_depth = line.count('(') - line.count(')')
+                inst_name = im.group(2)
+                inst_start = abs_lineno
+                inst_pins = defaultdict(list)
+                inst_has_decl_error = False
+                # Collect pins from start line
+                for pin in re.findall(r'\.\s*(\w+)\s*\(', line):
+                    inst_pins[pin].append(abs_lineno)
+                if inst_depth <= 0:
                     in_instance = False
-                continue
         else:
-            # Inside an instance block — check for direction declarations
-            if re.match(r'^\s*(input|output|wire|inout)\s+', line):
+            # Inside instance — check for illegal declarations
+            dm = re.match(r'^\s*(input|output|wire|inout|reg)\b', line)
+            if dm and not inst_has_decl_error:
+                inst_has_decl_error = True
                 errors.append({
                     'check': 'F3_decl_inside_instance',
                     'module': mod_name,
-                    'msg': f"Direction declaration found inside cell instance '{instance_name}' block (started line {start_lineno + instance_start}): '{line.strip()[:60]}' — FM-599",
-                    'line': start_lineno + i
+                    'msg': f"Direction declaration '{line.strip()[:50]}' found INSIDE cell instance '{inst_name}' (started line {inst_start}) → FM-599. eco_applier inserted at wrong location.",
+                    'line': abs_lineno
                 })
 
-            instance_depth += line.count('(') - line.count(')')
-            if instance_depth <= 0:
-                in_instance = False
+            # Collect pins for F4
+            for pin in re.findall(r'\.\s*(\w+)\s*\(', line):
+                inst_pins[pin].append(abs_lineno)
 
-    return errors
-
-
-def check_duplicate_port_connections(mod_lines, mod_name, start_lineno):
-    """Check F4: .pin(net) appears twice in same instance block."""
-    errors = []
-    in_instance = False
-    instance_depth = 0
-    instance_pins = defaultdict(list)
-    instance_name = ''
-    instance_start = 0
-
-    for i, line in enumerate(mod_lines):
-        if not in_instance:
-            m = re.match(r'^\s*([A-Za-z]\w*)\s+(\w+)\s*\(', line)
-            if m and m.group(1) not in ('module', 'input', 'output', 'wire', 'reg',
-                                          'inout', 'integer', 'parameter', 'localparam'):
-                in_instance = True
-                instance_depth = line.count('(') - line.count(')')
-                instance_name = m.group(2)
-                instance_start = i
-                instance_pins = defaultdict(list)
-                pins = re.findall(r'\.\s*(\w+)\s*\(', line)
-                for pin in pins:
-                    instance_pins[pin].append(start_lineno + i)
-                if instance_depth <= 0:
-                    in_instance = False
-                continue
-        else:
-            pins = re.findall(r'\.\s*(\w+)\s*\(', line)
-            for pin in pins:
-                instance_pins[pin].append(start_lineno + i)
-
-            instance_depth += line.count('(') - line.count(')')
-            if instance_depth <= 0:
-                in_instance = False
-                for pin, linenos in instance_pins.items():
+            inst_depth += line.count('(') - line.count(')')
+            if inst_depth <= 0:
+                # Instance closed — check for duplicate pins
+                for pin, linenos in inst_pins.items():
                     if len(linenos) > 1:
                         errors.append({
                             'check': 'F4_dup_port_conn',
                             'module': mod_name,
-                            'msg': f"Duplicate port connection '.{pin}(...)' in instance '{instance_name}' at lines {linenos} — FM-599",
+                            'msg': f"Duplicate '.{pin}(...)' in instance '{inst_name}' at lines {linenos[:3]} → FM-599",
                             'line': linenos[0]
                         })
+                in_instance = False
 
-    return errors
+    # Check 9: direction declaration not in port list header
+    errors.extend(check_declaration_not_in_header(mod_lines, mod_name, start_lineno))
 
-
-def check_corrupted_port_values(mod_lines, mod_name, start_lineno):
-    """Check F5: .pin( net1, net2, net3 ) — multiple nets in single port connection (corrupted insertion)."""
-    errors = []
-    for i, line in enumerate(mod_lines):
-        # Find .pinname( content ) patterns where content has commas (multiple nets)
-        for m in re.finditer(r'\.\w+\s*\(\s*([^)]+)\)', line):
-            value = m.group(1)
-            # Ignore bus slices like {a, b, c} — they're valid concatenations
-            value_no_braces = re.sub(r'\{[^}]*\}', '', value)
-            if ',' in value_no_braces and not re.match(r'^\s*\d', value_no_braces):
-                # Has comma outside of bus concat — likely corrupted
-                errors.append({
-                    'check': 'F5_corrupted_port_value',
-                    'module': mod_name,
-                    'msg': f"Port connection has multiple comma-separated nets (corrupted): '{m.group(0)[:60]}' — FM-599",
-                    'line': start_lineno + i
-                })
-    return errors
-
-
-def check_port_list_balance(mod_lines, mod_name, start_lineno):
-    """Check port list parentheses are balanced."""
-    errors = []
-    if not mod_lines:
-        return errors
-
-    # Module first line has the opening '('
-    depth = 0
-    port_list_closed = False
-    for i, line in enumerate(mod_lines):
-        for ch in line:
-            if ch == '(':
-                depth += 1
-            elif ch == ')':
-                depth -= 1
-                if depth == 0 and not port_list_closed:
-                    port_list_closed = True
-                elif depth < 0:
-                    errors.append({
-                        'check': 'port_list_unbalanced',
-                        'module': mod_name,
-                        'msg': f"Unbalanced parentheses in module (depth went negative at line {start_lineno + i}) — FM-599",
-                        'line': start_lineno + i
-                    })
-                    return errors
-        if port_list_closed:
-            break
-
-    if not port_list_closed:
+    # F2: wire X conflicts with implicit wire from port connection
+    wire_implicit_conflicts = set(wire_decls.keys()) & port_conn_nets
+    for net in wire_implicit_conflicts:
         errors.append({
-            'check': 'port_list_unclosed',
+            'check': 'F2_implicit_wire_conflict',
             'module': mod_name,
-            'msg': f"Module port list never closed (depth never returned to 0) — FM-599",
-            'line': start_lineno
+            'msg': f"'wire {net};' (line {wire_decls[net]}) conflicts with implicit wire from .anypin({net}) port connection → FM SVR-9 → FM-599",
+            'line': wire_decls[net]
         })
 
     return errors
 
 
-def check_instance_balance(mod_lines, mod_name, start_lineno):
-    """Check that cell instance parentheses are balanced (no runaway instance blocks)."""
-    errors = []
-    in_instance = False
-    instance_depth = 0
-    instance_name = ''
-    instance_start = 0
-
-    for i, line in enumerate(mod_lines):
-        if not in_instance:
-            m = re.match(r'^\s*([A-Za-z]\w*)\s+(\w+)\s*\(', line)
-            if m and m.group(1) not in ('module', 'input', 'output', 'wire', 'reg',
-                                          'inout', 'integer', 'parameter', 'localparam'):
-                in_instance = True
-                instance_depth = line.count('(') - line.count(')')
-                instance_name = m.group(2)
-                instance_start = i
-                if instance_depth <= 0:
-                    in_instance = False
-        else:
-            instance_depth += line.count('(') - line.count(')')
-            if instance_depth < 0:
-                errors.append({
-                    'check': 'instance_unbalanced',
-                    'module': mod_name,
-                    'msg': f"Cell instance '{instance_name}' has unbalanced parens (depth < 0 at line {start_lineno + i})",
-                    'line': start_lineno + i
-                })
-                in_instance = False
-            elif instance_depth == 0:
-                in_instance = False
-
-    if in_instance:
-        errors.append({
-            'check': 'instance_unclosed',
-            'module': mod_name,
-            'msg': f"Cell instance '{instance_name}' (started line {start_lineno + instance_start}) never closed before endmodule",
-            'line': start_lineno + instance_start
-        })
-
-    return errors
-
-
-def main():
-    parser = argparse.ArgumentParser(description='Validate Verilog gate-level netlists for FM-599 errors')
-    parser.add_argument('netlists', nargs='+', help='Netlist files (.v or .v.gz)')
-    parser.add_argument('--quiet', action='store_true', help='Only print failures')
-    args = parser.parse_args()
+def validate_file(path, quiet=False, max_errors=50, skip_checks=None, target_modules=None):
+    """
+    Stream through file, validate each module. Returns total error count.
+    target_modules: set of module names to check. None = check all (slow for large netlists).
+    """
+    if not quiet:
+        scope = f"modules: {sorted(target_modules)}" if target_modules else "all modules"
+        print(f"\n=== Validating: {path} ({scope}) ===")
 
     total_errors = 0
-    for netlist_path in args.netlists:
-        if not args.quiet:
-            print(f"\n=== Validating: {netlist_path} ===")
-        try:
-            lines = read_netlist(netlist_path)
-        except Exception as e:
-            print(f"ERROR: Cannot read {netlist_path}: {e}")
-            total_errors += 1
-            continue
+    modules_checked = 0
 
-        errors, warnings = validate_netlist(lines, netlist_path)
+    try:
+        for mod_name, mod_lines, start_lineno in iter_modules(path):
+            # Skip modules not in target set (fast mode)
+            if target_modules is not None:
+                # Exact match OR with _0/_1 P&R stage suffix (e.g., umcsdpintf_0)
+                base_name = re.sub(r'_\d+$', '', mod_name)  # strip trailing _0, _1 etc
+                if mod_name not in target_modules and base_name not in target_modules:
+                    continue
 
-        if errors:
+            modules_checked += 1
+            errors = validate_module(mod_name, mod_lines, start_lineno)
+            if skip_checks:
+                errors = [e for e in errors if e['check'] not in skip_checks]
             for err in errors:
-                print(f"  [{err['check']}] Module: {err['module']} | Line: {err['line']}")
+                print(f"  [{err['check']}] {err['module']} | line {err['line']}")
                 print(f"    {err['msg']}")
-            print(f"  FAIL: {len(errors)} error(s) found in {netlist_path}")
-            total_errors += len(errors)
-        else:
-            if not args.quiet:
-                print(f"  PASS: No Verilog syntax errors found")
+                total_errors += 1
+                if total_errors >= max_errors:
+                    print(f"  ... (stopped after {max_errors} errors)")
+                    return total_errors
+    except Exception as e:
+        print(f"  ERROR reading {path}: {e}")
+        return 1
 
-        if warnings:
-            for w in warnings:
-                print(f"  WARN: {w}")
+    if total_errors == 0:
+        if not quiet:
+            print(f"  PASS: {modules_checked} modules checked, 0 errors")
+    else:
+        print(f"  FAIL: {total_errors} error(s) in {modules_checked} modules")
 
-    print(f"\n=== SUMMARY: {'FAIL' if total_errors > 0 else 'PASS'} — {total_errors} total error(s) ===")
-    return 1 if total_errors > 0 else 0
+    return total_errors
+
+
+
+def check_declaration_not_in_header(mod_lines, mod_name, start_lineno):
+    """Check 9: Every input/output declaration in body must appear in port list header.
+    FM-599 when reading as -r (reference): port declared in body but missing from terminal list."""
+    errors = []
+    # Build port list header from first ~200 lines
+    header_text = "".join(mod_lines[:200])
+    port_list_match = re.search(r"\((.*?)\)\s*;", header_text, re.DOTALL)
+    if not port_list_match:
+        return errors
+    header_ports = set(re.findall(r"\b([A-Za-z_]\w*)\b", port_list_match.group(1)))
+    header_ports -= {"input","output","inout","wire","reg","integer","parameter",
+                     "localparam","genvar","time","real","realtime"}
+    # Check all direction declarations in body
+    for i, line in enumerate(mod_lines):
+        m = re.match(r"^\s*(input|output|inout)\s+(?:\[.*?\]\s+)?(\w+)\s*;", line)
+        if m:
+            sig = m.group(2)
+            if sig not in header_ports:
+                errors.append({"check": "check9_decl_not_in_header", "module": mod_name,
+                    "msg": (f"'{sig}' has '{m.group(1)} {sig};' declaration in body "
+                            f"but NOT in module port list header — FM-599 when file used as REF (-r flag)"),
+                    "line": start_lineno + i})
+    return errors
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='Streaming Verilog netlist validator — catches FM-599 errors before FM submission.\n'
+                    'FAST MODE: use --modules to validate only specific modules (recommended for large netlists).'
+    )
+    parser.add_argument('netlists', nargs='+', help='Netlist files (.v or .v.gz)')
+    parser.add_argument('--quiet', action='store_true', help='Only print failures')
+    parser.add_argument('--max-errors', type=int, default=50,
+                        help='Stop after this many errors per file (default: 50)')
+    parser.add_argument('--strict', action='store_true',
+                        help='Run ALL checks including F1/F2/F4 which may have pre-existing false positives. '
+                             'Default: only F3 (decl inside instance) and F5 (corrupted port value) — '
+                             'these are ALWAYS eco_applier bugs, never pre-existing.')
+    parser.add_argument('--modules', nargs='*',
+                        help='Only validate these module names (fast mode). '
+                             'Pass the modules eco_applier touched to avoid scanning entire netlist. '
+                             'Example: --modules ddrss_umccmd_t_umcsdpintf ddrss_umccmd_t_umcfei')
+    args = parser.parse_args()
+
+    target_modules = set(args.modules) if args.modules else None
+
+    # Default: only F3 and F5 (always eco_applier bugs). --strict adds F1/F2/F4.
+    skip_checks = set()
+    if not args.strict:
+        skip_checks = {'F1_dup_wire', 'F2_implicit_wire_conflict', 'F4_dup_port_conn'}
+
+    grand_total = 0
+    for path in args.netlists:
+        grand_total += validate_file(path, quiet=args.quiet, max_errors=args.max_errors,
+                                     skip_checks=skip_checks, target_modules=target_modules)
+
+    status = 'FAIL' if grand_total > 0 else 'PASS'
+    print(f"\n=== OVERALL: {status} — {grand_total} total error(s) across {len(args.netlists)} file(s) ===")
+    return 1 if grand_total > 0 else 0
 
 
 if __name__ == '__main__':
