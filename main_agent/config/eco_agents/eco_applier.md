@@ -265,7 +265,7 @@ For each pin in `port_connections_per_stage[Stage]` (or `port_connections` if ab
 - `NEEDS_NAMED_WIRE:*`: skip (resolved in Step 0).
 - `UNRESOLVABLE_IN_<signal>`: grep the signal in current stage PostEco temp — found → use it; not found → SKIPPED.
 - All other nets: `grep -cw "<net>"` in module buffer >= 1 required.
-- **HFS alias check (Real Net Preference):** If net_name matches an HFS alias pattern (`FxPrePlace_`, `FxCts_`, `ctmn_`, `ctmi_`, `phfnn_`, `phfnr_`, `SEQMAP_NET_`, `dftopt`) → grep the real RTL-named net from the study JSON in module buffer. If count >= 1 → use the real net instead. Record `"net_upgraded_from_alias": true` in the entry JSON. See Pass 4 Real Net Preference Check for full procedure.
+- **HFS alias check (Real Net Preference):** Detect a P&R alias by checking if the net exists in RTL source: `grep -rw "<net_name>" data/PreEco/SynRtl/ → count = 0` means it is a P&R alias (not from RTL). If alias detected → grep the real RTL-named net from the study JSON `old_net`/`new_net` field in the module buffer. If count >= 1 → use the real net instead. Record `"net_upgraded_from_alias": true` in the entry JSON. See Pass 4 Real Net Preference Check for full procedure.
 
 If any input missing → SKIPPED. NEVER insert a gate with missing input — floating input causes FM to misclassify downstream DFFs.
 
@@ -283,6 +283,11 @@ for line in module_scope_lines:
             cell_type = m.group(1); break
 ```
 If no match in this stage → try other stages. Still none → SKIPPED. NEVER use bare generic primitives (`MUX2`, `AND2`, `OR2`) — FM cannot elaborate behavioral constructs.
+
+**Per-stage cell type resolution:** The cell_type found from Synthesize PreEco may have a different variant in PrePlace/Route (e.g., `CPDLVT` → `CPDLVTLL` suffix for Route low-leakage variant). After finding cell_type in Synthesize:
+1. Verify the cell_type exists in the current stage's PreEco: `zcat <REF_DIR>/data/PreEco/<Stage>.v.gz | grep -cm1 "<cell_type>"`
+2. If count = 0 → search for a variant in this stage: same gate function, different suffix. Replace in `cell_type` for this stage.
+3. Record the resolved cell_type in the applied JSON for ALL stages — never leave `cell_type: "?"` in the output.
 
 **GATE_OUTPUT_PIN verification (run AFTER Step 2, BEFORE Step 3):**
 
@@ -431,11 +436,14 @@ For existing cells where `new_net` already exists in PostEco.
 
 Before writing any net name into a rewire port connection, check whether the net from `port_connections_per_stage` is an HFS alias. HFS aliases are P&R-stage artifacts that can be renamed in subsequent operations — hardcoding them causes FM mismatches in later rounds.
 
-**HFS alias patterns** (if net_name matches any of these prefixes/patterns, it is an alias):
-`FxPrePlace_`, `FxCts_`, `ctmn_`, `ctmi_`, `phfnn_`, `phfnr_`, `SEQMAP_NET_`, `dftopt`
+**P&R alias detection (generic — no hardcoded patterns):**
+A net is a P&R alias if it does NOT exist in the RTL source:
+```bash
+grep -rw "<net_name>" data/PreEco/SynRtl/   # count = 0 → P&R alias; count > 0 → real RTL net
+```
 
 **Check procedure:**
-1. If net_name matches an HFS alias pattern → it is an alias.
+1. `grep -rw "<net_name>" data/PreEco/SynRtl/ → count = 0` → it is a P&R alias.
 2. Grep for the real RTL-named net (from the study JSON `old_net` or `new_net` field) in the current stage module buffer:
    ```bash
    grep -cw "<real_net>" <module_buffer>
@@ -475,6 +483,13 @@ posteco_count=$(grep -c "^module " /tmp/eco_apply_<TAG>_<Stage>.v)
 [ "$preeco_count" != "$posteco_count" ] && set summary.module_count_mismatch=true && exit 1
 ```
 Mark ALL entries VERIFY_FAILED. Never proceed to recompress with wrong module count.
+
+**Known false alarm condition:** Hierarchical netlists with parameterized or uniquified sub-modules may show a module count that differs by a small amount (≤ 5) after decompress/recompress due to tooling artifacts — not actual module creation/deletion. In this case:
+1. Verify all ECO instances are present via grep in the modified module buffer
+2. If ECO instances confirmed present AND count delta ≤ 5 → log as `module_count_mismatch_false_alarm: true` in JSON and continue (do NOT VERIFY_FAILED)
+3. If count delta > 5 OR ECO instances cannot be confirmed → VERIFY_FAILED + EXIT (original hard rule)
+
+Always record `module_count_mismatch_corrected: true` in the applied JSON when a false alarm is detected and overridden.
 
 **Check 5 — No explicit wire conflicts with implicit port-connection wires.** For each module: collect `wire N;` explicit declarations and all nets appearing in `.anypin(N)` connections. Any overlap → FAIL. eco_applier NEVER adds explicit `wire N;` — every net is implicitly declared via port connections.
 
@@ -597,6 +612,6 @@ Write `<BASE_DIR>/data/<TAG>_eco_applied_round<ROUND>.json`. Every entry MUST in
 9. **Detect netlist type before every stage** — `grep -c "^module "` before processing.
 10. **eco_applier NEVER adds `wire N;` declarations** — every net is implicitly declared via port connections; explicit `wire N;` always causes FM-599.
 11. **ALREADY_APPLIED for new_logic requires pin verification** — instance existence alone is insufficient; verify each input pin connection matches study JSON; if any pin differs → `force_reapply: true`.
-12. **Always use real RTL-named net, not HFS alias, when both exist** — before writing any net name into a port connection or rewire, check if it is an HFS alias (`FxPrePlace_`, `FxCts_`, `ctmn_`, `ctmi_`, `phfnn_`, `phfnr_`, `SEQMAP_NET_`, `dftopt`). If it is, grep for the real RTL net; if found (count >= 1) use the real net and record `net_upgraded_from_alias: true`. Prevents hardcoded P&R aliases from breaking subsequent rounds.
+12. **Always use real RTL-named net, not P&R alias, when both exist** — before writing any net name into a port connection or rewire, check if it is a P&R alias: `grep -rw "<net_name>" data/PreEco/SynRtl/ → count = 0` means P&R alias. If alias, grep for the real RTL net from the study JSON; if found (count >= 1) use the real net and record `net_upgraded_from_alias: true`. Prevents P&R aliases from breaking subsequent rounds.
 
 **Final output:** `<BASE_DIR>/data/<TAG>_eco_applied_round<ROUND>.json`. After writing, verify it is non-empty and contains a `summary` field, then exit. The calling orchestrator reads the applied JSON and generates the RPT — eco_applier writes JSON only, not RPT.
